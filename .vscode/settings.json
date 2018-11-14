@@ -1,0 +1,12 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.useTabStops": false,
+  "files.trimTrailingWhitespace": true,
+  "git.autofetch": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.provideLintTask": true,
+  "eslint.validate": [
+    "javascript", "vue"
+  ]
+}

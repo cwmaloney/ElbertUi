@@ -1,0 +1,10 @@
+{
+  "presets": [
+    [ "env",
+      // don't transform modules to commonjs; leave modules to bundler
+      {  "modules": false }
+    ]
+  ],
+  "plugins": [ "transform-object-rest-spread" ],
+  "comments": false
+}
