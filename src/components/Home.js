@@ -14,7 +14,7 @@ const Home = {
         <span class="breadcrumb-item base-active">{{"Home"}}</span>
       </nav>
       -->
-      <div class="hl-page-block">
+      <div class="hl-form">
         <form>
 
           <div class="form-group base-row">
