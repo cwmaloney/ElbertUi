@@ -9,10 +9,12 @@ const CreateCheer = {
 
   template: `
     <div class="hl-form">
+      <!--
       <nav class="base-breadcrumb">
         <a class="base-breadcrumb-item" href="#/">{{"Home"}}</a>
         <a class="base-breadcrumb-item" href="#/cheer">{{"Create Cheer"}}</a>
       </nav>
+      -->
 
       <div class="hl-page-block">
         <form>

@@ -9,9 +9,11 @@ const Home = {
 
   template: `
     <div class="hl-page">
+      <!--
       <nav class="breadcrumb">
         <span class="breadcrumb-item base-active">{{"Home"}}</span>
       </nav>
+      -->
       <div class="hl-page-block">
         <form>
 
