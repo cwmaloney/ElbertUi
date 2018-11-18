@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <!-- set viewport per Bootstrap requiremenets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="static/favicon.ico">
+
+    <title>Holiday Lights at Farmstead Lane</title>
+
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <!-- bootstrap and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
+    <!-- components -->
+    <script src="./components/Home.js"></script>
+    <script src="./components/CreateMessage.js"></script>
+    <script src="./components/CreateCheer.js"></script>
+
+    <style>
+
+      /* ----------------------------------------------------------------------------
+       bootstrap customizations
+       */
+
+      /*
+       change default margin and padding for Bootstrap's container-fluid
+       */
+      .container-fluid {
+        margin: 0;
+        padding: 0;
+      }
+
+      /*
+      change default margin and padding for Bootstrap's breadcrumb
+      */
+      .breadcrumb {
+        margin: 0;
+        padding: 2px .5rem;
+      }
+
+      /* ----------------------------------------------------------------------------
+        app
+      */
+
+      #app {
+        margin: 0;
+        padding: 2px 15px;
+        background-color: light-gray;
+      }
+
+      .view {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ----------------------------------------------------------------------------
+        nav bar customizations
+      */
+
+      .hl-navbar {
+        margin: 2px 0 2px 0;
+        padding: 3px .5rem 3px .5rem;
+        font-size: 1rem;
+      }
+
+      /* .hl-navbar-brand {
+      } */
+
+      /* .hl-navbar-toggler {
+      } */
+
+      /* .hl-navbar-toggler-icon {
+      } */
+
+      .hl-navbar-collapse {
+        margin: 0;
+        padding: 0;
+      }
+
+      .hl-navbar button {
+        padding: 2px .5rem;
+        margin: 1px .4rem;
+      }
+
+      .hl-navbar-nav {
+        margin: 0;
+        padding: 0;
+      }
+
+      .hl-navbar-right-nav {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* .hl-navbar-text {
+      } */
+
+      .hl-navbar-block-text {
+        display: inline-block;
+      }
+
+      .hl-navbar-drop-down {
+        margin: 0;
+        padding: 0;
+      }
+      .hl-navbar-drop-down li {
+        margin: 0;
+        padding: 0;
+      }
+      .hl-navbar-drop-down li a {
+        margin: 0;
+        padding: 0 1rem;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div id="app" class="container-fluid" style="padding: 0; margin: 0;">
+
+      <div class="container-fluid">
+        <nav class="hl-navbar navbar navbar-expand-md navbar-light">
+
+          <a class="navbar-brand" href="#/">Holiday Lights</a>
+
+          <button class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#mainNavBar"
+                  aria-controls="mainNavBar"
+                  aria-expanded="false"
+                  aria-label="Toggle Navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNavBar">
+            <div class="navbar-nav">
+
+              <router-link to="/" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+                Home
+              </router-link>
+
+              <router-link to="/message" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+                Create Message
+              </router-link>
+
+              <router-link to="/cheer" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+                Create Cheer
+              </router-link>
+<!--
+              <router-link to="/trivia" tag="a" class="nav-item nav-link">
+                Play Trivia
+              </router-link>
+
+              <router-link to="/survery" tag="a" class="nav-item nav-link">
+                Complete Survey
+              </router-link>
+
+              <router-link to="/snakes" tag="a" class="nav-item nav-link">
+                Play Snakes
+              </router-link>
+
+              <router-link to="/pong" tag="a" class="nav-item nav-link">
+                Play Pong
+              </router-link>
+-->
+
+          </div>
+        </nav>
+      </div>
+
+      <div class="container-fluid">
+        <!-- the router will render a component here -->
+        <transition name="fade" mode="out-in">
+          <router-view class="container-fluid view"></router-view>
+        </transition>
+      </div>
+
+      <!-- <messages></messages> -->
+
+    </div>
+  </body>
+
+  <footer>
+    <script src="./index.js"></script>
+  </footer>
+
+</html>
