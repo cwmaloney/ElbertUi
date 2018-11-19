@@ -29,29 +29,17 @@ To install all dependencies from npm
 npm install
 ```
 
-To run wepback development server with hot reload at localhost:8080
+To run debug server with hot reload at localhost:3000
 
 ``` bash
 npm run start
 ```
 
-To create a build for production using webpack (the build is stored the dist folder):
-
-``` bash
-npm run build
-```
-
-To remove previously created production files (removes dist folder):
-
-``` bash
-npm run clean
-
-```
 
 Deploy the build in the dist folder to Firebase:
 
 ``` bash
-npm run deployToFirebase
+npm run deploy
 ```
 
 See scripts in package.json for a full list of build and maintenance scripts.
@@ -69,68 +57,7 @@ See "dependencies" in package.json for a complete list
 
 ## Build Dependencies and Tools
 
-### AutoPrefixer
-
-Modifies CSS files and adds vender prefixes
-(Used by webpack)
-
-### Babel
-
-Babel "transpiles" new JavaScript (ES2015/ES6 and newer) syntax to old JavaScript (ES5) and provides polyfill for new JavaScript
-
-Notes
-
-1. babel-core is the "core"
-1. plug-ins define transforms Babel can do to the code.
-1. presets are "predefined" collections of plug-ins.
-1. We use preset-env (defines 2015, 2016, 2017 ES) plus plug-ins object-rest-spread and runtime to define what we want Babel to do.
-1. babel-eslint creates output that ESLint can use as input because ESLint does not understand all JavaScript extentions.
-1. babel-loader uses Babel to load files for webpack
-
-### webpack
-
-### webpack Loaders
-
-Loaders "pre-process" files into formats that webpack and process.
-These loaders are used by this project:
-
-1. vue-loader - loads VueJs files
-1. vue-template-compiler - used by vue-loader
-1. babel-loader - loads JavaScript files
-1. file-loader - loads any file into output folder - returns URL
-1. url-loader - like file-loader but returns data URL for small files
-1. eslint-loader - lints JS and script parts of vue files
-1. style-loader - injects CSS into the DOM
-1. css-loader - works with style-loader
-1. sass-loader - converts SCSS and SASS to CSS
-
-### webpack Plug-ins
-
-These plug-ins are used by this project:
-
-1. CleanWebpackPlugin - deletes previous builds
-1. CopyWebpackPlugin - copies static assets to distribution
-1. FriendlyErrorsPlugin - displays build errors
-1. HtmlWebpackPlugin - generate index.html with content hash for caching
-1. HotModuleReplacement
-1. MiniCssExtractPlugin - extract CSS into files
-1. OptimizeCssAssetsPlugin - compress/dedup CSS
-1. UglifyJs - minifiy JavaScript
-1. VueLoaderPlugin - for Vue files
-
-## npm packages used by build/dev
-
-1. webpack
-1. babel
-1. eslint
-1. webpack-merge - mergers objects and arrays - used by build/dev scripts
-1. chalk - terminal string styling/color
-1. path - cross-platform path manipulation
-1. shell - "cross-platform shell" for build
-
-### webpack Development Server
-
-1. webpack-dev-server the .js and .vue files "on the fly"
+TBD
 
 ## Visual Studio Code Setup
 
@@ -217,7 +144,7 @@ Install npm-check-updates
   npm install -g npm-check-updates
   ````
 
-Check local pagages
+Check local packages
 
   ``` bash
   ncu
