@@ -49,7 +49,7 @@ const CreateCheer = {
 
                 <div class="tab-pane fade show active" id="nameTabContent" role="tabpanel">
                   <div class="form-group">
-                    <label for="teamName">Choose a Team:</label>
+                    <label for="teamName">Choose a team:</label>
                     <select class="form-control" id="teamName">
                       <option>Chiefs</option>
                       <option>Royals</option>
