@@ -194,3 +194,47 @@ Add source folders so that Chrome can use source maps to map bundle to original 
    ``` bash
    firebase deploy
    ```
+
+## npm Notes
+
+1. List globally install packages
+
+  ``` bash
+  npm list -g --depth 0
+  ````
+
+1. List localy installed packages
+
+  ``` bash
+  npm list --depth 0
+  ````
+
+1. Update packages to latest version available
+
+Install npm-check-updates
+
+  ``` bash
+  npm install -g npm-check-updates
+  ````
+
+Check local pagages
+
+  ``` bash
+  ncu
+  ````
+
+Check global packages
+
+  ``` bash
+  ncu -g
+  ````
+
+1. Node version manager
+
+  ``` bash
+  npm i n
+  ````
+
+  ``` bash
+  n
+  ````
