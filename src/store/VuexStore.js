@@ -1,15 +1,14 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+"use strict";
 
+const UserInputs = require("./UserInputStore.js");
+const MessageStore = require("./MessageStore.js");
 
-const UserInputs = require("./UserInputs.js");
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+const VuexStore = {
   modules: {
-    userInputs
+    MessageStore,
+    UserInputs
   },
   strict: true
-  // strict: process.env.NODE_ENV !== 'production'
-});
+};
+
+module.exports = VuexStore;

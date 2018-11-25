@@ -1,3 +1,4 @@
+"use strict";
 
 const state = {
   sender: null,
@@ -45,32 +46,13 @@ const mutations = {
 
 const actions = {
 
-  signIn(context, {emailAddress, password}) {
-    // console.log('action signIn' +
-    //  ' emailAdress=' + emailAddress + ' password=' + password);
-
-    return new Promise((resolve, reject) => {
-      context.getters.authenticationApi.signIn(emailAddress, password)
-        .then(function(user) {
-          // console.log('action signIn authenticationApi.signIn completed', user);
-
-          if (!context.getters.authenticationApi.hasNotifier) {
-            context.commit('setUser', user);
-          }
-          resolve(user);
-        })
-        .catch(function(error) {
-          reject(error);
-        });
-    });
-  },
-
-
 };
 
-export default {
+const UserInputStore = {
   state,
   getters,
   mutations,
   actions
 }
+
+module.exports = UserInputStore;

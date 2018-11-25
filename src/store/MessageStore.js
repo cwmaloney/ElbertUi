@@ -1,8 +1,12 @@
+"use strict";
+
 /*
-Message objects
+Message objects contain
   text - the text to display, required
   displayPeriod - how long the message should be displayed in milliseconds, optional
   class - CSS classes for message display, optional
+  id - added by the store
+  timer - added by the store
 */
 
 const state = {
@@ -21,7 +25,7 @@ const mutations = {
   deleteAllMessages(state) {
     for (let index = 0; index < state.messages.length; index++) {
       let message = state.messages[index];
-      clearTimeout(message.timeoutEvent);
+      clearTimeout(message.timer);
       state.messages.splice(index, 1);
     }
   },
@@ -31,7 +35,7 @@ const mutations = {
     if (index >= 0) {
       let message = state.messages[index];
       if (message.id === id) {
-        clearTimeout(message.timeoutEvent);
+        clearTimeout(message.timer);
         state.messages.splice(index, 1);
       }
     }
@@ -40,7 +44,7 @@ const mutations = {
 
 function startTimer(context, message) {
   if (message.timeout) {
-    message.timeoutEvent = setTimeout(function () {
+    message.timer = setTimeout(function () {
       context.commit('deleteMessage', message.id);
     }, message.timeout);
   }
@@ -60,9 +64,11 @@ const getters = {
   messages: (state) => { return state.messages; }
 };
 
-export default {
+const MessageStore = {
   state,
   mutations,
   actions,
   getters
 }
+
+module.exports = MessageStore;
