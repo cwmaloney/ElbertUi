@@ -84,7 +84,8 @@ function newFunction() {
                       <option>Texas Christian</option>
                       <option>Texas</option>
                       <option>Texas Tech</option>
-                      <option>USA<option>
+                      <option>USA</option>
+                    </select>
                   </div>
                 </div>
 

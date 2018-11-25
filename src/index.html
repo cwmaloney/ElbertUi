@@ -7,7 +7,7 @@
     <!-- set viewport per Bootstrap requiremenets -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" href="static/favicon.ico">
+    <link rel="icon" href="./resources/favicon.ico">
 
     <title>Holiday Lights at Farmstead Lane</title>
 
@@ -26,6 +26,10 @@
     <script src="./components/Home.js"></script>
     <script src="./components/CreateMessage.js"></script>
     <script src="./components/CreateCheer.js"></script>
+    <script src="./components/CreateSuggestion.js"></script>
+
+    <script src="./components/Status.js"></script>
+    <script src="./components/Utilities.js"></script>
 
     <style>
 
@@ -141,6 +145,11 @@
               <router-link to="/cheer" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
                 Create Cheer
               </router-link>
+
+              <router-link to="/suggestion" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+                Send Suggestion
+              </router-link>
+
 <!--
               <router-link to="/trivia" tag="a" class="nav-item nav-link">
                 Play Trivia

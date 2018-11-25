@@ -1,7 +1,7 @@
 "use strict";
 
-const Message = {
-  name: 'message',
+const CreateMessage = {
+  name: 'create-message',
 
   data: function () {
     return {};
