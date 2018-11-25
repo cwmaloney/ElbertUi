@@ -14,7 +14,7 @@ const Home = {
 
       <div class="form-group base-row">
         <p>
-          Utilities page... work in progress
+          The utilities page will be here.
         </p>
       </div>
 
