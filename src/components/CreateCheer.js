@@ -92,71 +92,71 @@ function newFunction() {
                   <div class="form-group">
                     <label for="colors">Choose one or more colors:</label>
                     <select multiple class="form-control" id="colors">
-                      <option>white</option>
-                      <option>snow</option>
-                      <option>celadon</option>
-                      <option>gray</option>
-                      <option>silver</option>
+                      <option>White</option>
+                      <option>Snow</option>
+                      <option>Celadon</option>
+                      <option>Gray</option>
+                      <option>Silver</option>
 
-                      <option>red</option>
-                      <option>crimson</option>
-                      <option>darkRed</option>
-                      <option>scarlet</option>
+                      <option>Red</option>
+                      <option>Crimson</option>
+                      <option>Dark Red</option>
+                      <option>Scarlet</option>
 
-                      <option>pink</option>
-                      <option>darkPink</option>
-                      <option>maroon</option>
-                      <option>fuchsia</option>
-                      <option>magenta</option>
+                      <option>Pink</option>
+                      <option>Dark Pink</option>
+                      <option>Maroon</option>
+                      <option>Fuchsia</option>
+                      <option>Magenta</option>
 
-                      <option>orange</option>
-                      <option>orangeRed</option>
+                      <option>Orange</option>
+                      <option>Orange Red</option>
 
-                      <option>yellow</option>
+                      <option>Yellow</option>
 
-                      <option>cream</option>
+                      <option>Cream</option>
                       <option>brown</option>
-                      <option>darkBrown</option>
-                      <option>gold</option>
+                      <option>Dark Brown</option>
+                      <option>Gold</option>
 
-                      <option>yellowGreen</option>
-                      <option>chartreuse</option>
+                      <option>Yellow Green</option>
+                      <option>Chartreuse</option>
 
-                      <option>green</option>
-                      <option>darkGreen</option>
-                      <option>grinchGreen</option>
-                      <option>olive</option>
-                      <option>turquoise</option>
-                      <option>darkTurquoise</option>
-                      <option>lime</option>
-                      <option>teal</option>
+                      <option>Green</option>
+                      <option>Dark Green</option>
+                      <option>Grinch Green</option>
+                      <option>Olive</option>
+                      <option>Turquoise</option>
+                      <option>Dark Turquoise</option>
+                      <option>Lime</option>
+                      <option>Teal</option>
 
-                      <option>blueGreen</option>
-                      <option>cyan</option>
-                      <option>darkCyan</option>
+                      <option>BlueGreen</option>
+                      <option>Cyan</option>
+                      <option>Dark Cyan</option>
 
-                      <option>blue</option>
-                      <option>lightBlue</option>
-                      <option>cornFlowerBlue</option>
-                      <option>darkBlue</option>
-                      <option>royalBlue</option>
-                      <option>navy</option>
-                      <option>midnightBlue</option>
-                      <option>sportingBlue</option>
+                      <option>Blue</option>
+                      <option>Light Blue</option>
+                      <option>Corn Flower Blue</option>
+                      <option>Dark Blue</option>
+                      <option>Royal Blue</option>
+                      <option>Navy</option>
+                      <option>MidnightBlue</option>
+                      <option>Sporting Blue</option>
 
-                      <option>indigo</option>
-                      <option>darkIndigo</option>
+                      <option>Indigo</option>
+                      <option>Dark Indigo</option>
 
-                      <option>blueViolet</option>
+                      <option>BlueViolet</option>
 
-                      <option>purple</option>
-                      <option>royalPurple</option>
-                      <option>hornedFrogPurple</option>
+                      <option>Purple</option>
+                      <option>Royal Purple</option>
+                      <option>Horned Frog Purple</option>
 
-                      <option>violet</option>
-                      <option>darkViolet</option>
+                      <option>Violet</option>
+                      <option>Dark Violet</option>
 
-                      <option>black</option>
+                      <option>Black</option>
                     </select>
                   </div>
                 </div>
