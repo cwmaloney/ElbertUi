@@ -4,7 +4,17 @@ const Status = {
   name: 'status',
 
   data: function () {
-    return {};
+    return {
+      info: "Loading..."
+    };
+  },
+
+  mounted () {
+    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+    axios
+      .get("http://localhost:8000/status")
+      .then((response) => { this.info = response.data; } )
+      .catch((error) => { this.info = error; });
   },
 
   template: `
@@ -14,7 +24,7 @@ const Status = {
 
           <div class="form-group base-row">
             <p>
-              The status page will be here.
+            {{ info }}
             </p>
           </div>
 

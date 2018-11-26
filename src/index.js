@@ -19,6 +19,7 @@ const router = new VueRouter( { routes } );
 
 /* eslint-disable no-new */
 const app = new Vue({
-  router
+  router,
+  provide() { return { axios: axios }; },
 }).$mount('#app');
 
