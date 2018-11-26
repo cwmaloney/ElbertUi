@@ -41,8 +41,8 @@ const CreateMessage = {
               <option>Joyous Kwanzaa</option>
               <option>Will you marry me?</option>
               <option>Live Long and Prosper</option>
-              <option>Happy New Year!</option>
-              <option>BFFs!</option>
+              <option>Happy New Year</option>
+              <option>You are my BFF</option>
             </select>
           </div>
           <div class="form-group">
