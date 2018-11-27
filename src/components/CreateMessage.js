@@ -34,8 +34,12 @@ const CreateMessage = {
         message:("Creating your message..."),
         messageClass: 'alert-info'
       });
+      console.log(`t.s.si=${this.$store.sessionId}`);
       axios.post("http://localhost:8000/messages", {
-          sender: this.sender, recipient: this.recipient, message: this.message
+          sessionId: this.$store.getters.sessionId,
+          sender: this.sender,
+          recipient: this.recipient,
+          message: this.message
         })
         .then((response) => {
           if (response.status === 200 && response.data.status === "Okay") {
@@ -45,6 +49,11 @@ const CreateMessage = {
               // timeout: 2000,
               dismissible: true
             });
+            if (response.data.sessionId) {
+              console.log(`r.d.si=${response.data.sessionId} t.s.si=${this.$store.getters.sessionId}`);
+              this.$store.commit('setSessionId', response.data.sessionId);
+              console.log(`t.s.si=${this.$store.getters.sessionId}`);
+            }
           } else {
             this.$store.dispatch('setMessage', {
               message: response.data.message,

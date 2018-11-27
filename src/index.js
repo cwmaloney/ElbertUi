@@ -39,21 +39,11 @@ const messageStoreGetters = {
 };
 
 const messageStoreMutations = {
-
   addMessage(state, message) {
     message.id = state.nextMessageId++;
     state.messages.push(message);
     return message;
   },
-
-  deleteAllMessages(state) {
-    for (let index = 0; index < state.messages.length; index++) {
-      let message = state.messages[index];
-      clearTimeout(message.timer);
-      state.messages.splice(index, 1);
-    }
-  },
-
   deleteMessage(state, id) {
     let index = state.messages.map(message => message.id).indexOf(id);
     if (index >= 0) {
@@ -62,6 +52,13 @@ const messageStoreMutations = {
         clearTimeout(message.timer);
         state.messages.splice(index, 1);
       }
+    }
+  },
+  deleteAllMessages(state) {
+    for (let index = 0; index < state.messages.length; index++) {
+      let message = state.messages[index];
+      clearTimeout(message.timer);
+      state.messages.splice(index, 1);
     }
   }
 };
@@ -95,7 +92,29 @@ const MessageStore = {
   actions: messageStoreActions
 }
 
-// ----- Vuex Store - ser Input -----
+// ----- Vuex Store - sessionId -----
+
+const sessionStoreState = {
+  sessionId: null
+};
+
+const sessionStoreGetters = {
+  sessionId: (state) => { return state.sessionId; }
+};
+
+const sessionStoreMutations = {
+  setSessionId(state, sessionId) {
+    state.sessionId = sessionId;
+  }
+};
+
+const SessionStore = {
+  state: sessionStoreState,
+  getters: sessionStoreGetters,
+  mutations: sessionStoreMutations
+};
+
+// ----- Vuex Store - user Input -----
 
 const userInputState = {
   sender: null,
@@ -147,6 +166,9 @@ const userInputMutations = {
   loadUserInputFromLocalStorage ( { commit, state } ) {
     const sender = localStorage.getItem("sender");
     if (sender) { state.setSender(sender); }
+
+    const recipient = localStorage.getItem("recipient");
+    if (recipient) { state.setRecipient(recipient); }
   }
 };
 
@@ -162,7 +184,8 @@ const UserInputStore = {
 const Store = {
   modules: {
     MessageStore,
-    UserInputStore
+    UserInputStore,
+    SessionStore
   },
   strict: true
 };
