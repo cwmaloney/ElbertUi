@@ -199,6 +199,13 @@ Vue.component( "messages", Messages );
 const router = new VueRouter( { routes } );
 const store = new Vuex.Store(Store);
 
+console.log(window.location.hostname);
+if (window.location.hostname == "farmsteadlights.com") {
+  axios.defaults.baseURL = "https://farmsteadlights.ngrok.io";
+} else {
+  axios.defaults.baseULR = "http://localhost:8000"
+}
+
 /* eslint-disable no-new */
 const app = new Vue({
   store,
