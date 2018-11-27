@@ -4,7 +4,58 @@ const CreateMessage = {
   name: 'create-message',
 
   data: function () {
-    return {};
+    return {
+      sender: null,
+      recipient: null,
+      message: null
+    };
+  },
+
+  methods: {
+    checkForm: function (e) {
+      if (this.name && this.age) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.sender) {
+        this.errors.push('Sender required.');
+      }
+      if (!this.recipient) {
+        this.errors.push('Recipient required.');
+      }
+
+      e.preventDefault();
+    },
+
+    addMessage: function() {
+      this.$store.dispatch('setMessage', {
+        message:("Creating your message..."),
+        messageClass: 'alert-info'
+      });
+      axios.post("http://localhost:8000/messages", {
+          sender: this.sender, recipient: this.recipient, message: this.message
+        })
+        .then((response) => {
+          if (response.status === 200 && response.data.status === "Okay") {
+            this.$store.dispatch('setMessage', {
+              message: response.data.message,
+              messageClass: 'alert-success fade show',
+              // timeout: 2000,
+              dismissible: true
+            });
+          } else {
+            this.$store.dispatch('setMessage', {
+              message: response.data.message,
+              messageClass: 'alert-danger fade show',
+              // timeout: 2000,
+              dismissible: true
+            });
+          }
+        })
+        .catch((error) => { this.info = error; });
+    }
   },
 
   template: `
@@ -17,18 +68,18 @@ const CreateMessage = {
       -->
 
       <div class="hl-form">
-        <form>
+        <form @submit="checkForm">
           <div class="form-group base-row">
              You can create a message to display on Gridzilla!
           </div>
 
           <div class="form-group">
             <label for="To">To:</label>
-            <input type="text" class="form-control" id="to" aria-describedby="To">
+            <input v-model="recipient" type="text" class="form-control" id="to" aria-describedby="To">
           </div>
           <div class="form-group">
             <label for="message">Message:</label>
-            <select class="form-control" id="Message">
+            <select v-model="message" class="form-control" id="Message">
               <option>Happy Holidays</option>
               <option>Seasons Greetings</option>
               <option>Love, Peace, and Joy</option>
@@ -47,10 +98,11 @@ const CreateMessage = {
           </div>
           <div class="form-group">
             <label for="From">From:</label>
-            <input type="text" class="form-control" id="from" aria-describedby="From">
+            <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
           </div>
 
-          <button type="submit" class="btn btn-primary mx-auto">Send</button>
+          <button class="btn btn-primary mx-auto"
+            v-on:click="addMessage">Send</button>
 
           <p class="text-left mt-3">
           You can use common names and names like Mom, Dad, and Grandmother.
