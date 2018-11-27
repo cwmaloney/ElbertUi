@@ -35,7 +35,6 @@ To run debug server with hot reload at localhost:3000
 npm run start
 ```
 
-
 Deploy the build in the dist folder to Firebase:
 
 ``` bash
@@ -82,13 +81,14 @@ The project contains a launch.json file that defines the debugging configuraiton
 
 ## #Debugging in Chrome
 
-Add source folders so that Chrome can use source maps to map bundle to original source files.
+1. Open index.html in Chrome
 
-### Debugging with Visual Studio Code
+## Debugging with Visual Studio Code
 
-1. Verify the webpack config produces source maps
-1. Tasks / Run Task... / npm start
-1. Debug / Start Debugging
+1. In VS Code, open the project folder (File/Open)
+1. On the left navigation pane (Activity bar), click the debug icon
+1. Choose Launch indiex.html as the debug configuration (next to the green arrow)
+1. Click the green arrow icon in the debug view to open index.html with Chrome and attach the debugger
 
 ## FireBase notes
 
