@@ -4,13 +4,64 @@ const CreateCheer = {
   name: 'create-cheer',
 
   data: function () {
-    return {};
+    return {
+      sender: null,
+      teamName: null,
+      colorNames: null
+    };
   },
 
-  template: newFunction()
-};
-function newFunction() {
-  return `
+  methods: {
+    checkForm: function (e) {
+    },
+
+    addCheer: function() {
+      this.$store.dispatch('setMessage', {
+        message:("Creating your cheer..."),
+        messageClass: 'alert-info'
+      });
+      //console.log(`t.s.si=${this.$store.sessionId}`);
+      axios.post("/cheers", {
+          sessionId: this.$store.getters.sessionId,
+          sender: this.sender,
+          recipient: this.teamName,
+          message: this.teamColors,
+          timeout: 10000
+        })
+        .then((response) => {
+          if (response.status === 200 && response.data.status === "Okay") {
+            this.$store.dispatch('setMessage', {
+              message: response.data.message,
+              messageClass: 'alert-success fade show',
+              // timeout: 2000,
+              dismissible: true
+            });
+            if (response.data.sessionId) {
+              //console.log(`r.d.si=${response.data.sessionId} t.s.si=${this.$store.getters.sessionId}`);
+              this.$store.commit('setSessionId', response.data.sessionId);
+              //console.log(`t.s.si=${this.$store.getters.sessionId}`);
+            }
+          } else {
+            this.$store.dispatch('setMessage', {
+              message: response.data.message,
+              messageClass: 'alert-danger fade show',
+              // timeout: 2000,
+              dismissible: true
+            });
+          }
+        })
+        .catch((error) => {
+          this.$store.dispatch('setMessage', {
+            message: error.toString(),
+            messageClass: 'alert-danger fade show',
+            // timeout: 2000,
+            dismissible: true
+          });
+        });
+    }
+  },
+
+  template: `
     <div class="hl-page">
       <!--
       <nav class="base-breadcrumb">
@@ -20,7 +71,7 @@ function newFunction() {
       -->
 
       <p>
-        You can cheer for your favorite team using Gridzilla!
+        Grizilla can help you cheer for your favorite team!
       </p>
 
       <div class="hl-form">
@@ -166,10 +217,12 @@ function newFunction() {
 
           </div>
 
-          <button type="submit" class="btn btn-primary mx-auto">Send</button>
+          <button class="btn btn-primary mx-auto"
+            v-on:click="addCheer">Send Cheer</button>
+
         </form>
       </div>
     </div>
-  `;
-}
+  `
+};
 
