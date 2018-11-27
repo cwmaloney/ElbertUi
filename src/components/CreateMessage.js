@@ -34,12 +34,13 @@ const CreateMessage = {
         message:("Creating your message..."),
         messageClass: 'alert-info'
       });
-      console.log(`t.s.si=${this.$store.sessionId}`);
-      axios.post("http://localhost:8000/messages", {
+      //console.log(`t.s.si=${this.$store.sessionId}`);
+      axios.post("/messages", {
           sessionId: this.$store.getters.sessionId,
           sender: this.sender,
           recipient: this.recipient,
-          message: this.message
+          message: this.message,
+          timeout: 10000
         })
         .then((response) => {
           if (response.status === 200 && response.data.status === "Okay") {
@@ -50,9 +51,9 @@ const CreateMessage = {
               dismissible: true
             });
             if (response.data.sessionId) {
-              console.log(`r.d.si=${response.data.sessionId} t.s.si=${this.$store.getters.sessionId}`);
+              //console.log(`r.d.si=${response.data.sessionId} t.s.si=${this.$store.getters.sessionId}`);
               this.$store.commit('setSessionId', response.data.sessionId);
-              console.log(`t.s.si=${this.$store.getters.sessionId}`);
+              //console.log(`t.s.si=${this.$store.getters.sessionId}`);
             }
           } else {
             this.$store.dispatch('setMessage', {
@@ -63,7 +64,14 @@ const CreateMessage = {
             });
           }
         })
-        .catch((error) => { this.info = error; });
+        .catch((error) => {
+          this.$store.dispatch('setMessage', {
+            message: error.toString(),
+            messageClass: 'alert-danger fade show',
+            // timeout: 2000,
+            dismissible: true
+          });
+        });
     }
   },
 
@@ -111,7 +119,7 @@ const CreateMessage = {
           </div>
 
           <button class="btn btn-primary mx-auto"
-            v-on:click="addMessage">Send</button>
+            v-on:click="addMessage">Send Message</button>
 
           <p class="text-left mt-3">
           You can use common names and names like Mom, Dad, and Grandmother.
