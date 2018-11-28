@@ -77,9 +77,7 @@ Useful optional extensions:
 The project contains a tasks.json file that references the NPM tasks from the webpack config file.  See the Tasks menu.
 The project contains a launch.json file that defines the debugging configuraiton.
 
-## Debugging
-
-## #Debugging in Chrome
+## Debugging in Chrome
 
 1. Open index.html in Chrome
 
@@ -87,7 +85,7 @@ The project contains a launch.json file that defines the debugging configuraiton
 
 1. In VS Code, open the project folder (File/Open)
 1. On the left navigation pane (Activity bar), click the debug icon
-1. Choose Launch indiex.html as the debug configuration (next to the green arrow)
+1. Choose Launch index.html as the debug configuration (next to the green arrow)
 1. Click the green arrow icon in the debug view to open index.html with Chrome and attach the debugger
 
 ## FireBase notes

@@ -205,7 +205,7 @@ const store = new Vuex.Store(Store);
 if (window.location.hostname == "farmsteadlights.com") {
   axios.defaults.baseURL = "https://farmsteadlights.ngrok.io";
 } else {
-  axios.defaults.baseULR = "http://localhost:8000"
+  axios.defaults.baseURL = "http://localhost:8000";
 }
 
 /* eslint-disable no-new */
