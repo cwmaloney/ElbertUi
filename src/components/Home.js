@@ -18,8 +18,20 @@ const Home = {
         <form>
 
           <div class="form-group base-row">
-            <p class="col-sm-12">
-              Holiday Lights at Farmstead Lane begins Thanksgiving night!
+            <p>
+              Welcome to Holiday Lights on Farmstead Lane!
+            </p>
+            <p>
+              Use the menu above to:
+            </p>
+            <ul>
+              <li>Display a message on Grizilla</li>
+              <li>Cheer for your favorite team</li>
+              <li>Send the Holiday Lights team a suggestion</li>
+              <li>Learn more about Holiday Lights</li>
+            </ul>
+            <p>
+              More features will be coming soon include suverys and games.
             </p>
           </div>
 
