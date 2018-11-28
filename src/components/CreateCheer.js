@@ -24,8 +24,8 @@ const CreateCheer = {
       axios.post("/cheers", {
           sessionId: this.$store.getters.sessionId,
           sender: this.sender,
-          recipient: this.teamName,
-          message: this.teamColors,
+          teamName: this.teamName,
+          teamColors: this.teamColors,
           timeout: 10000
         })
         .then((response) => {
@@ -70,6 +70,8 @@ const CreateCheer = {
       </nav>
       -->
 
+      <h1>COMING SOON!</H1>
+
       <p>
         Grizilla can help you cheer for your favorite team!
       </p>
@@ -79,7 +81,7 @@ const CreateCheer = {
 
           <div class="form-group">
             <label for="name">Your first name (optional):</label>
-            <input type="text" class="form-control" id="name" aria-describedby="Your Name">
+            <input v-model="sender" type="text" class="form-control" id="name" aria-describedby="Your Name">
             <small class="form-text text-muted">
               You can display your name on Grizilla with you cheer.
             </small>
@@ -104,7 +106,7 @@ const CreateCheer = {
                 <div class="tab-pane fade show active" id="nameTabContent" role="tabpanel">
                   <div class="form-group">
                     <label for="teamName">Choose a team:</label>
-                    <select class="form-control" id="teamName">
+                    <select v-model="teamName" class="form-control" id="teamName">
                       <option>Santa</option>
                       <option>Rudolph</option>
                       <option>Raindeer</option>
@@ -143,7 +145,7 @@ const CreateCheer = {
                 <div class="tab-pane fade" id="colorsTabContent" role="tabpanel">
                   <div class="form-group">
                     <label for="colors">Choose one or more colors:</label>
-                    <select multiple class="form-control" id="colors">
+                    <select v-model="colorNames" multiple class="form-control" id="colors">
                       <option>White</option>
                       <option>Snow</option>
                       <option>Celadon</option>
