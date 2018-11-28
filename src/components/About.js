@@ -41,7 +41,7 @@ const About = {
               <li>Mike & Jody McCamon</li>
               <li>Ken Vrana</li>
               <li>Elliot Maloney</li>
-              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah , Amanda , Brett, and Cindy</li>
+              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah , Amanda , Brett, & Cindy</li>
             </ul>
           </div>
 
