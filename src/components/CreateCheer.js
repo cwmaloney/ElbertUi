@@ -86,7 +86,7 @@ const CreateCheer = {
             <label for="name">Your first name (optional):</label>
             <input v-model="sender" type="text" class="form-control" id="name" aria-describedby="Your Name">
             <small class="form-text text-muted">
-              We will display your name with you cheer.
+              We will display your name with your cheer.
             </small>
           </div>
 
