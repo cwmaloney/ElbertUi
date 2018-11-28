@@ -124,13 +124,13 @@ const CreateCheer = {
                 <option>Chiefs</option>
                 <option>Royals</option>
                 <option>Sporting KC</option>
+                <option>Mavericks</option>
 
                 <option>Baylor</option>
                 <option>Iowa</option>
                 <option>Iowa State</option>
                 <option>Kansas</option>
                 <option>Kansas State</option>
-                <option>Mavericks</option>
                 <option>MNU</option>
                 <option>Missouri</option>
                 <option>Nebraska</option>
