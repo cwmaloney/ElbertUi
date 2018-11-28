@@ -45,7 +45,7 @@ const About = {
             </ul>
           </div>
 
-          <p>We thank the city of Overland Park for hosting the show at the Farmstead.</li>
+          <p>We thank the city of Overland Park for hosting the show at the Farmstead.</p>
 
         </form>
       </div>
