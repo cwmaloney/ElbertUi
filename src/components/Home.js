@@ -25,7 +25,7 @@ const Home = {
               Use the menu above to:
             </p>
             <ul>
-              <li>Display a message on Grizilla</li>
+              <li>Display a message on Gridzilla</li>
               <li>Cheer for your favorite team</li>
               <li>Send the Holiday Lights team a suggestion</li>
               <li>Learn more about Holiday Lights</li>
