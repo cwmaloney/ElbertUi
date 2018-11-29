@@ -199,13 +199,13 @@ const CreateCheer = {
               <option>Dark Blue</option>
               <option>Royal Blue</option>
               <option>Navy</option>
-              <option>Midnigh tBlue</option>
+              <option>Midnight Blue</option>
               <option>Sporting Blue</option>
 
               <option>Indigo</option>
               <option>Dark Indigo</option>
 
-              <option>BlueViolet</option>
+              <option>Blue Violet</option>
 
               <option>Purple</option>
               <option>Royal Purple</option>
