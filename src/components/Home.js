@@ -11,13 +11,13 @@ const Home = {
     <div class="hl-page">
       <!--
       <nav class="breadcrumb">
-        <span class="breadcrumb-item base-active">{{"Home"}}</span>
+        <span class="breadcrumb-item active">{{"Home"}}</span>
       </nav>
       -->
       <div class="hl-form">
         <form>
 
-          <div class="form-group base-row">
+          <div class="form-group">
             <p>
               Welcome to Holiday Lights on Farmstead Lane!
             </p>

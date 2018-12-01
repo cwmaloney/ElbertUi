@@ -70,15 +70,15 @@ const CreateSuggestion = {
   template: `
     <div class="hl-page">
       <!--
-      <nav class="base-breadcrumb">
-        <a class="base-breadcrumb-item" href="#/">{{"Home"}}</a>
-        <a class="base-breadcrumb-item" href="#/message">{{"Send Suggestion"}}</a>
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#/">{{"Home"}}</a>
+        <a class="breadcrumb-item" href="#/message">{{"Send Suggestion"}}</a>
       </nav>
       -->
 
       <div class="hl-form">
         <form>
-          <div class="form-group base-row">
+          <div class="form-group row">
              We would love to hear what you are thinking.
           </div>
 

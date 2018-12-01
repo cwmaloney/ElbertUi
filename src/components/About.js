@@ -11,18 +11,15 @@ const About = {
     <div class="hl-page">
       <!--
       <nav class="breadcrumb">
-        <span class="breadcrumb-item base-active">{{"About"}}</span>
+        <span class="breadcrumb-item active">{{"About"}}</span>
       </nav>
       -->
       <div class="hl-form">
         <form>
 
-          <div class="form-group base-row">
-            <h2>
-              Holiday Lights on Farmstead Lane
-            </h2>
+          <div class="form-group">
             <p>
-              Holiday Lights is the creation of <b>Mark Callegari</b>.
+              Holiday Lights on Farmstead Lane is the creation of <b>Mark Callegari</b>.
             </p>
             <p>
               Deanna Rose Children's Farmstead became the home of the show in 2013.
@@ -41,7 +38,7 @@ const About = {
               <li>Mike & Jody McCamon</li>
               <li>Ken Vrana</li>
               <li>Elliot Maloney</li>
-              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah , Amanda , Brett, & Cindy</li>
+              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah, Amanda, Brett, & Cindy</li>
             </ul>
           </div>
 

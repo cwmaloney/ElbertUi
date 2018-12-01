@@ -12,7 +12,7 @@ const Utilities = {
       <div class="hl-form">
         <form>
 
-          <div class="form-group base-row">
+          <div class="form-group">
             <p>
               The utilities page will be here.
             </p>

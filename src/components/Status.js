@@ -22,7 +22,7 @@ const Status = {
       <div class="hl-form">
         <form>
 
-          <div class="form-group base-row">
+          <div class="form-group">
             <p>
             {{ info }}
             </p>
