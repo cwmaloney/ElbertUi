@@ -78,25 +78,30 @@ const CreateMessage = {
   template: `
     <div class="hl-page">
       <!--
-      <nav class="base-breadcrumb">
-        <a class="base-breadcrumb-item" href="#/">{{"Home"}}</a>
-        <a class="base-breadcrumb-item" href="#/message">{{"Create Message"}}</a>
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#/">{{"Home"}}</a>
+        <a class="breadcrumb-item" href="#/message">{{"Create Message"}}</a>
       </nav>
       -->
 
       <div class="hl-form">
         <form @submit="checkForm">
-          <div class="form-group base-row">
+          <div class="form-group">
             You can create a message to display on Gridzilla!
           </div>
 
           <div class="form-group">
-            <label for="To">To:</label>
+            <label class="col-form-label col-form-label-sm pb-0" for="To">To:</label>
             <input v-model="recipient" type="text" class="form-control" id="to" aria-describedby="To">
           </div>
 
           <div class="form-group">
-            <label for="message">Message:</label>
+            <label class="col-form-label col-form-label-sm pb-0" for="From">From:</label>
+            <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm pb-0" for="message">Message:</label>
             <select v-model="message" class="form-control" id="Message">
               <option>Happy Holidays</option>
               <option>Seasons Greetings</option>
@@ -115,15 +120,10 @@ const CreateMessage = {
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="From">From:</label>
-            <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
-          </div>
-
           <button class="btn btn-primary mx-auto"
             v-on:click="addMessage">Send Message</button>
 
-          <p class="text-left mt-3">
+          <p class="form-text text-muted text-left mt-3">
           You can use common names and names like Mom, Dad, Grandmother, & Everyone.
           You can enter multiple names separated by commas.
           </p>
