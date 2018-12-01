@@ -13,18 +13,18 @@ const CreateMessage = {
 
   methods: {
     checkForm: function (e) {
-      if (this.name && this.age) {
-        return true;
-      }
+    //   if (this.name && this.age) {
+    //     return true;
+    //   }
 
-      this.errors = [];
+    //   this.errors = [];
 
-      if (!this.sender) {
-        this.errors.push('Sender required.');
-      }
-      if (!this.recipient) {
-        this.errors.push('Recipient required.');
-      }
+    //   if (!this.sender) {
+    //     this.errors.push('Sender required.');
+    //   }
+    //   if (!this.recipient) {
+    //     this.errors.push('Recipient required.');
+    //   }
 
       e.preventDefault();
     },
@@ -87,13 +87,14 @@ const CreateMessage = {
       <div class="hl-form">
         <form @submit="checkForm">
           <div class="form-group base-row">
-             You can create a message to display on Gridzilla!
+            You can create a message to display on Gridzilla!
           </div>
 
           <div class="form-group">
             <label for="To">To:</label>
             <input v-model="recipient" type="text" class="form-control" id="to" aria-describedby="To">
           </div>
+
           <div class="form-group">
             <label for="message">Message:</label>
             <select v-model="message" class="form-control" id="Message">
@@ -113,6 +114,7 @@ const CreateMessage = {
               <option>You are my BFF</option>
             </select>
           </div>
+
           <div class="form-group">
             <label for="From">From:</label>
             <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
@@ -122,7 +124,7 @@ const CreateMessage = {
             v-on:click="addMessage">Send Message</button>
 
           <p class="text-left mt-3">
-          You can use common names and names like Mom, Dad, and Grandmother.
+          You can use common names and names like Mom, Dad, Grandmother, & Everyone.
           You can enter multiple names separated by commas.
           </p>
 
