@@ -6,14 +6,24 @@ const CreateCheer = {
   data: function () {
     return {
       cheerType: "team",
-      sender: null,
+      sender: "",
       teamName: "Chiefs",
       colorNames: []
     };
   },
 
+  computed: {
+    isCheerByTeam() {
+      return this.cheerType === "team";
+    },
+    isCheerByColors() {
+      return this.cheerType === "colors";
+    }
+  },
+
   methods: {
     checkForm: function (e) {
+      e.preventDefault();
     },
 
     addCheer: function() {
@@ -38,7 +48,6 @@ const CreateCheer = {
             this.$store.dispatch('setMessage', {
               message: response.data.message,
               messageClass: 'alert-success fade show',
-              // timeout: 2000,
               dismissible: true
             });
             if (response.data.sessionId) {
@@ -50,7 +59,6 @@ const CreateCheer = {
             this.$store.dispatch('setMessage', {
               message: response.data.message,
               messageClass: 'alert-danger fade show',
-              // timeout: 2000,
               dismissible: true
             });
           }
@@ -59,7 +67,6 @@ const CreateCheer = {
           this.$store.dispatch('setMessage', {
             message: error.toString(),
             messageClass: 'alert-danger fade show',
-            // timeout: 2000,
             dismissible: true
           });
         });
@@ -69,49 +76,52 @@ const CreateCheer = {
   template: `
     <div class="hl-page">
       <!--
-      <nav class="base-breadcrumb">
-        <a class="base-breadcrumb-item" href="#/">{{"Home"}}</a>
-        <a class="base-breadcrumb-item" href="#/cheer">{{"Create Cheer"}}</a>
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#/">{{"Home"}}</a>
+        <a class="breadcrumb-item" href="#/cheer">{{"Create Cheer"}}</a>
       </nav>
       -->
 
       <div class="hl-form">
-        <p>
-          Use Gridzilla to cheer for your team!
-        </p>
-
-        <form>
+        <form @submit="checkForm">
+          <div class="form-group">
+            Use Gridzilla to cheer for your team!
+          </div>
 
           <div class="form-group">
-            <label for="name">Your first name (optional):</label>
+            <label class="col-form-label pb-0" for="name">Your first name (optional)</label>
             <input v-model="sender" type="text" class="form-control" id="name" aria-describedby="Your Name">
             <small class="form-text text-muted">
               We will display your name with your cheer.
             </small>
           </div>
 
-          <div class="form-group">
-            <label>Cheer by Team:</label>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cheerBy" id="cheerForTeam" value="team" v-model="cheerType">
-              <label class="form-check-label" for="cheerForTeam">Name</label>
+          <fieldset class="form-group">
+            <div class="row">
+              <label class="col-form-label col-sm-2">Cheer By</label>
+              <div class="col-sm-9">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="cheerForTeam" value="team" v-model="cheerType">
+                  <label class="form-check-label" for="cheerForTeam">Team Name</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="cheerForColors" value="colors" v-model="cheerType">
+                  <label class="form-check-label" for="cheerForColors">Colors</label>
+                </div>
+              </div>
             </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cheerBy" id="cheerForColors" value="colors" v-model="cheerType">
-              <label class="form-check-label" for="cheerForColors">Colors</label>
+            <div class="row">
+              <div class="col-sm-12">
+                <small class="form-text text-muted">
+                  If your team is not listed, choose your colors.
+                </small>
+              </div>
             </div>
-            <!--
-            <small class="form-text text-muted">
-              If your team is not listed, choose your colors.
-            </small>
-            -->
-          </div>
-
+          </fieldset>
 
           <div class="form-group">
-            <label for="teamName" class="col-form-label col-form-label-sm">Choose a team:</label>
-            <select v-model="teamName" class="form-control" id="teamName" :disabled="cheerType === 'colors'">
+            <label for="teamName" class="col-form-label col-form-label-sm pb-0">Choose a team</label>
+            <select v-model="teamName" class="form-control" id="teamName" v-bind:disabled="isCheerByColors">
               <option>Santa</option>
               <option>Rudolph</option>
               <option>Raindeer</option>
@@ -147,9 +157,9 @@ const CreateCheer = {
           </div>
 
           <div class="form-group">
-            <label for="colors" class="col-form-label col-form-label-sm">Choose one or more colors:</label>
+            <label for="colors" class="col-form-label col-form-label-sm pb-0">Choose one or more colors</label>
             <select v-model="colorNames" multiple class="form-control" id="colors"
-              style="height: 120px" :disabled="cheerType === 'team'">
+              style="height: 120px" v-bind:disabled="isCheerByTeam">
               <option>White</option>
               <option>Snow</option>
               <option>Celadon</option>
