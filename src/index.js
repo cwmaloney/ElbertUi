@@ -9,6 +9,7 @@ const routes = [
 
   { path: '/message', component: CreateMessage, name: 'message' },
   { path: '/cheer', component: CreateCheer, name: 'cheer' },
+  { path: '/snakes', component: Snakes, name: 'snakes' },
   { path: '/suggestion', component: CreateSuggestion, name: 'suggestion' },
 
   { path: '/about', component: About, name: 'about' },
@@ -195,6 +196,7 @@ const Store = {
 // ----- registers Vue components -----
 
 Vue.component( "messages", Messages );
+Vue.component( "snakes", Snakes );
 
 // ----- start Vue -----
 
