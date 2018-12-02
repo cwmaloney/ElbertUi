@@ -23,6 +23,9 @@ const Snakes = {
     },
 
     addMessage: function(messageObject) {
+      if (!messageObject.messageClass) {
+        messageObject.mesageClass = 'alert-info';
+      }
       this.$store.dispatch("addMessage", messageObject);
     },
 
@@ -33,8 +36,10 @@ const Snakes = {
         return;
       }
 
-      this.setMessage("Connectiong...");
-      this.socket = io(gridzillaBaseUrl, { reconnectionAttempts: 3 });
+      this.setMessage( { message: "Connecting..." } );
+
+      const url = gridzillaServerConfiguration.baseUrl;
+      this.socket = io(url, { reconnectionAttempts: 3 /*, transport : ['websocket']*/});
 
       this.socket.on('connect', function() {
         this.setMessage( {message: 'Connected to Gridzilla.'} );
@@ -49,51 +54,65 @@ const Snakes = {
         this.setMessage( messageObject );
       });
 
-      this.socket.on('reconnect_failed', function() {
-        this.setMessage( {message: 'Reconnection to Gridzilla failed!', messageClass: 'alert-danger fade show'} );
+      this.socket.on('reconnect_failed', function(error) {
+        this.setMessage( {message: 'Connection to Gridzilla failed!', messageClass: 'alert-danger fade show'} );
       }.bind(this));
 
-      this.socket.on('ping', function(data) {
-        const roundTripTime = Date.now() - this.pingTimestamp;
+      // this.socket.on('message', function(data) {
+      //   this.addMessage(data.messageObject);
+      // }.bind(this));
 
-        this.addMessage( { message: `The current game is ${data.activeGameId}.`, timeout: 1500 } );
-        this.addMessage( { message: `(ping round trip time is ${roundTripTime}.)`, timeout: 1500 } );
-
+      this.socket.on('snakes.pingResponse', function(data) {
+        if (data.activeGameId) {
+          this.addMessage( { message: `The current game is ${data.currentGameId}.`, timeout: 1500 } );
+        }
+        if (this.pingTimestamp) {
+          const roundTripTime = Date.now() - this.pingTimestamp;
+          this.addMessage( { message: `(ping round trip time is ${roundTripTime}ms.)`, timeout: 1500 } );
+        }
         setTimeout(this.sendPing.bind(this), 2000);
       }.bind(this));
 
-      this.socket.on('gameStarted', function(data) {
+      this.socket.on('snakes.registered', function(data) {
+        this.addMessage( {message: `Your game id is ${data.gameId}. You are the ${data.snakeColor} snake.`, timeout: 120000} );
+        this.gameActive = false;
+        setTimeout(this.sendPing.bind(this), 2000);
+      }.bind(this));
+
+      this.socket.on('snakes.gameStarted', function(data) {
         this.addMessage( {message: `Your game has started. You are the ${this.snakeColor} snake.`, timeout: 10000} );
         this.gameActive = true;
       }.bind(this));
 
-      this.socket.on('gameEnded', function(gameResults) {
+      this.socket.on('snakes.gameEnded', function(gameResults) {
         this.setMessage(`Your game has ended.`);
         this.gameActive = true;
         this.gameId = null;
       }.bind(this));
 
-      this.socket.on('state', function(data) {
+      this.socket.on('snakes.state', function(data) {
         this.displayBoard(data.board);
-      }.bind(this));
-
-      this.socket.on('message', function(data) {
-        this.addMessage(data.messageObject);
       }.bind(this));
     },
 
     register: function() {
+      this.initializeSocket();
+
       this.setMessage({message:"Registering...", messageClass: 'alert-info'});
-      this.socket.emit('register', { name: this.sender, snakeColor: this.snakeColor });
+      this.socket.emit('snakes.register', { name: this.sender, snakeColor: this.snakeColor });
     },
 
     // send ping to check status of game and measure latancy
     sendPing() {
-      this.socket.emit('ping', this.gameId);
+      this.socket.emit('snakes.ping');
       this.pingTimestamp = Date.now();
     },
 
     displayBoard(board) {
+    },
+
+    sendKeyPress(key) {
+      this.socket.emit('snakes.keyPress', key);
     }
 
   // createRandomPlayerName() {
@@ -127,20 +146,20 @@ const Snakes = {
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-4">
-                <button class="btn btn-primary mx-auto" v-on:click="send('Up')">Up</button>
+                <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Up')">Up</button>
               </div>
             </div>
             <div class="row justify-content-between">
               <div class="col-4">
-                <button class="btn btn-primary mx-auto" v-on:click="send('Left')">Left</button>
+                <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Left')">Left</button>
               </div>
               <div class="col-4">
-                <button class="btn btn-primary mx-auto" v-on:click="send('Right')">Right</button>
+                <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Right')">Right</button>
               </div>
             </div>
             <div class="row justify-content-center">
               <div class="col-4">
-                <button class="btn btn-primary mx-auto" v-on:click="send('Down')">Down</button>
+                <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Down')">Down</button>
               </div>
             </div>
           </div>

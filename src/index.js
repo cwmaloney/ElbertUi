@@ -203,18 +203,25 @@ Vue.component( "snakes", Snakes );
 const router = new VueRouter( { routes } );
 const store = new Vuex.Store(Store);
 
+let gridzillaServerConfiguration;
 // console.log(window.location.hostname);
 if (window.location.hostname == "farmsteadlights.com") {
-  axios.defaults.baseURL = "https://farmsteadlights.ngrok.io";
+  gridzillaServerConfiguration = {
+    baseUrl: "https://farmsteadlights.ngrok.io"
+  }
 } else {
-  axios.defaults.baseURL = "http://localhost:8000";
+  gridzillaServerConfiguration = {
+    baseUrl: "http://localhost:8000"
+  }
 }
+
+axios.defaults.baseURL = gridzillaServerConfiguration.baseUrl;
 
 /* eslint-disable no-new */
 const app = new Vue({
   store,
   router,
-  provide() { return { axios: axios }; },
+  provide() { return { axios: axios, gridzillaServerConfiguration: gridzillaServerConfiguration }; },
   beforeCreate() {
 		this.$store.commit('loadUserInputFromLocalStorage');
 	}
