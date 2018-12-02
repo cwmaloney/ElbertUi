@@ -26,6 +26,64 @@ const CreateCheer = {
       e.preventDefault();
     },
 
+    // onCheerResponse: function(response) {
+    //   if (response.status === 200) {
+    //     if ( response.data.status === "Okay") {
+    //       this.$store.dispatch('setMessage', {
+    //         message: response.data.message,
+    //         messageClass: 'alert-success fade show',
+    //         // timeout: 2000,
+    //         dismissible: true
+    //       });
+    //       if (response.data.sessionId) {
+    //         //console.log(`r.d.si=${response.data.sessionId} t.s.si=${this.$store.getters.sessionId}`);
+    //         this.$store.commit('setSessionId', response.data.sessionId);
+    //         //console.log(`t.s.si=${this.$store.getters.sessionId}`);
+    //       }
+    //     } else {
+    //       this.$store.dispatch('setMessage', {
+    //         message: response.data.message,
+    //         messageClass: 'alert-danger fade show',
+    //         // timeout: 2000,
+    //         dismissible: true
+    //       });
+    //     }
+    //   } else {
+    //     this.$store.dispatch('setMessage', {
+    //       message: `Unable to contact Gridzilla. Please try again. (error=${response.status})`,
+    //       messageClass: 'alert-danger fade show',
+    //       // timeout: 2000,
+    //       dismissible: true
+    //     });
+    //   }
+    // },
+
+    // onErrorResponse: function(error, callName) {
+    //   const message = ((callName) ? `${callName} Failed. `
+    //                               : `Unable to contact Gridzilla. `)
+    //       + `Please try again. (${error.toString()})`;
+    //   this.$store.dispatch('setMessage', {
+    //     message,
+    //     messageClass: 'alert-danger fade show',
+    //     // timeout: 2000,
+    //     dismissible: true
+    //   });
+    // },
+
+          // // Receive state from server
+          // socket.on('state', (state) => {
+          //   // and redraw the game
+          //   game.draw(state.players, state.apples);
+          // });
+      //console.log(`t.s.si=${this.$store.sessionId}`);
+      // axios.post("/snakes.register", {
+      //     sessionId: this.$store.getters.sessionId,
+      //     sender: this.sender,
+      //     timeout: 10000
+      //   })
+      //   .then((response) => { this.onRegisterResponse(response); })
+      //   .catch((error) => { this.onErrorResponse(error, "Registration"); });
+
     addCheer: function() {
       this.$store.dispatch('setMessage', {
         message:("Creating your cheer..."),
