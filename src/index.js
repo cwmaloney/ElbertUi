@@ -217,11 +217,42 @@ if (window.location.hostname == "farmsteadlights.com") {
 
 axios.defaults.baseURL = gridzillaServerConfiguration.baseUrl;
 
+function setMessage(messageObject) {
+  if (!messageObject.messageClass) {
+    messageObject.messageClass = 'alert-info';
+  }
+  store.dispatch("setMessage", messageObject);
+}
+
+//setMessage( { message: "Connecting to Gridzilla..." } );
+
+const socket = io(gridzillaServerConfiguration.baseUrl/*, { reconnectionAttempts: 3 , transport : ['websocket']}*/);
+
+socket.on('connect', function() {
+  // setMessage( {message: 'Connected to Gridzilla.'} );
+  console.log(`socket id= ${socket.id}`);
+});
+
+socket.on('disconnect', function(error) {
+  setMessage( {message: 'Disconnected from Gridzilla!', messageClass: 'alert-danger fade show'} );
+  console.log(`socket on disconnect: ${error.toString()}`);
+});
+
+socket.on('reconnect_failed', function(error) {
+  setMessage( {message: 'Connection to Gridzilla failed!', messageClass: 'alert-danger fade show'} );
+  console.log(`socket on reconnect_failed: ${error.toString()}`);
+});
+
+socket.on('message', function (messageObject) {
+  setMessage( messageObject );
+  console.log(`socket on nessage: ${messageObject.message}`);
+});
+
 /* eslint-disable no-new */
 const app = new Vue({
   store,
   router,
-  provide() { return { axios: axios, gridzillaServerConfiguration: gridzillaServerConfiguration }; },
+  provide() { return { axios, socket }; },
   beforeCreate() {
 		this.$store.commit('loadUserInputFromLocalStorage');
 	}
