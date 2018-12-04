@@ -6,7 +6,7 @@ const Snakes = {
   props: {
     gridHeight: { type: Number, default: 36 },
     gridWidth: { type: Number, default: 168 },
-    scaleFactor: { type: Number, default: 2 },
+    scaleFactor: { type: Number, default: 4 },
   },
 
   data: function () {
@@ -33,16 +33,19 @@ const Snakes = {
         } else if (this.mostRecentGameId >= this.gameId) {
           message = `Your game is over. Click Play if you want to play again.`;
         } else {
-           if (this.gameId === this.mostRecentGameId + 1) {
+          if (this.gameId === this.mostRecentGameId + 1) {
             message = `Your game is next!`
-           } else {
+          } else {
             message = `You can play game ${this.gameId}.`;
+            if (this.activeGameId) {
+              message += ` The current game is ${this.activeGameId}.`;
+            } else {
+              if (this.mostRecentGameId) {
+                message += ` The next game is ${this.mostRecentGameId+1}.`;
+              }
+            }
           }
           message += ` You will be the ${this.colorName} snake.`;
-          if (this.mostRecentGameId) {
-            message += ` The latest game was ${this.mostRecentGameId}.`;
-          }
-          return message;
         }
       } else {
         message = "If you want to play, enter your name and click Play.";
