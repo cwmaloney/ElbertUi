@@ -38,10 +38,10 @@ const Snakes = {
           } else {
             message = `You can play game ${this.gameId}.`;
             if (this.activeGameId) {
-              message += ` The current game is ${this.activeGameId}.`;
+              message += ` (The current game is ${this.activeGameId}.)`;
             } else {
               if (this.mostRecentGameId) {
-                message += ` The next game is ${this.mostRecentGameId+1}.`;
+                message += ` (The next game is ${this.mostRecentGameId+1}.)`;
               }
             }
           }
