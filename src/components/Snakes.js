@@ -6,14 +6,14 @@ const Snakes = {
   props: {
     gridHeight: { type: Number, default: 36 },
     gridWidth: { type: Number, default: 168 },
-    scaleFactor: { type: Number, default: 3 },
+    scaleFactor: { type: Number, default: 2 },
   },
 
   data: function () {
     return {
       name: "",
       gameId: null,
-      snakeColor: null,
+      colorName: null,
       dead: false,
       mostRecentGameId: null,
       activeGameId: null,
@@ -28,7 +28,7 @@ const Snakes = {
           if (this.dead) {
             message = "Your snake is dead."
           } else {
-            message = `It is now your turn to play!  You are the ${this.snakeColor} snake.`;
+            message = `It is now your turn to play!  You are the ${this.colorName} snake.`;
           }
         } else if (this.mostRecentGameId >= this.gameId) {
           message = `Your game is over. Click Play if you want to play again.`;
@@ -38,7 +38,7 @@ const Snakes = {
            } else {
             message = `You can play game ${this.gameId}.`;
           }
-          message += ` You will be the ${this.snakeColor} snake.`;
+          message += ` You will be the ${this.colorName} snake.`;
           if (this.mostRecentGameId) {
             message += ` The latest game was ${this.mostRecentGameId}.`;
           }
@@ -78,7 +78,7 @@ const Snakes = {
 
     register: function() {
       //this.setMessage({message:"Finding a game for you...", messageClass: 'alert-info'});
-      socket.emit('snakes.register', { name: this.name, snakeColor: this.snakeColor });
+      socket.emit('snakes.register', { name: this.name });
     },
 
     // send ping to check status of game and measure latancy
@@ -160,7 +160,7 @@ const Snakes = {
         });
       } else {
         this.gameId = data.gameId;
-        this.snakeColor = data.snakeColor;
+        this.colorName = data.colorName;
         this.gameActive = false;
         setTimeout(this.sendPing.bind(this), 2000);
       }
@@ -183,7 +183,7 @@ const Snakes = {
     }.bind(this));
 
     socket.on('snakes.state', function(data) {
-      console.log("SnakeScene state", data);
+      // ("SnakeScene state", data);
       this.displayGrid(data);
     }.bind(this));
 
