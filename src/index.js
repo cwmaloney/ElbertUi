@@ -234,12 +234,12 @@ socket.on('connect', function() {
 });
 
 socket.on('disconnect', function(error) {
-  //setMessage( {message: 'Disconnected from Gridzilla!', messageClass: 'alert-danger fade show'} );
+  // setMessage( {message: 'Disconnected from Gridzilla!', messageClass: 'alert-danger fade show'} );
   console.log(`socket on disconnect: ${error.toString()}`);
 });
 
 socket.on('reconnect_failed', function(error) {
-  //setMessage( {message: 'Connection to Gridzilla failed!', messageClass: 'alert-danger fade show'} );
+  // setMessage( {message: 'Connection to Gridzilla failed!', messageClass: 'alert-danger fade show'} );
   console.log(`socket on reconnect_failed: ${error.toString()}`);
 });
 
