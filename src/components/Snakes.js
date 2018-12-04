@@ -118,8 +118,8 @@ const Snakes = {
       }
     },
 
-    sendKeyPress(key) {
-      socket.emit('snakes.keyPress', key);
+    sendDirection(direction) {
+      socket.emit('snakes.changeDirection', direction);
     }
 
   // createRandomPlayerName() {
@@ -225,20 +225,20 @@ const Snakes = {
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Up')">Up</button>
+                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Up')">Up</button>
                 </div>
               </div>
               <div class="row justify-content-between">
                 <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Left')">Left</button>
+                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Left')">Left</button>
                 </div>
                 <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Right')">Right</button>
+                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Right')">Right</button>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendKeyPress('Down')">Down</button>
+                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Down')">Down</button>
                 </div>
               </div>
             </div>
