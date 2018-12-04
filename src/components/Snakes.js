@@ -132,7 +132,7 @@ const Snakes = {
     this.displayGrid({});
 
     socket.on('snakes.pingResponse', function(data) {
-      console.log(`SnakeScene pingResponse activeGameId=${data.activeGameId}`);
+      console.log(`SnakeScene pingResponse activeGameId=${data.activeGameId} @${new Date()}`);
       if (data.activeGameId) {
         if (this.activeGameId !== data.activeGameId) {
           this.activeGameId = data.activeGameId;
@@ -144,7 +144,7 @@ const Snakes = {
       if (this.pingTimestamp) {
         this.roundTripTime = Date.now() - this.pingTimestamp;
       }
-      setTimeout(this.sendPing.bind(this), 4000);
+      this.pingTimer = setTimeout(this.sendPing.bind(this), 4000);
       this.displayGrid({});
     }.bind(this));
 
@@ -162,7 +162,9 @@ const Snakes = {
         this.gameId = data.gameId;
         this.colorName = data.colorName;
         this.gameActive = false;
-        setTimeout(this.sendPing.bind(this), 2000);
+        if (!this.pingTimer) {
+          this.pingTimer = setTimeout(this.sendPing.bind(this), 2000);
+        }
       }
     }.bind(this));
 
