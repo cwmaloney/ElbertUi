@@ -182,9 +182,11 @@ const CreateCheer = {
             <select v-model="teamName" class="form-control" id="teamName" v-bind:disabled="isCheerByColors">
               <option>Santa</option>
               <option>Rudolph</option>
+              <option>Snowman</option>
               <option>Raindeer</option>
               <option>Grinch</option>
               <option>Snow</option>
+              <option>Tree</option>
               <option>Halloween</option>
               <option>Rainbow</option>,
               <option>USA</option>
@@ -263,7 +265,7 @@ const CreateCheer = {
 
               <option>Blue</option>
               <option>Light Blue</option>
-              <option>Corn Flower Blue</option>
+              <option>Cornflower Blue</option>
               <option>Dark Blue</option>
               <option>Royal Blue</option>
               <option>Navy</option>
