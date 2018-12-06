@@ -244,20 +244,28 @@ const Snakes = {
             <div class="container w-100 m-0 p-0">
               <div class="row justify-content-center w-100 m-0 p-0">
                 <div class="col-12 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Up')">Up</button>
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                    style="height: 64px; display: block"
+                    v-on:click="sendDirection('Up')">Up</button>
                 </div>
               </div>
               <div class="row justify-content-between w-100 m-0 p-0">
                 <div class="col-5 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Left')">Left</button>
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                    style="height: 64px; display: block"
+                    v-on:click="sendDirection('Left')">Left</button>
                 </div>
                 <div class="col-5 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Right')">Right</button>
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                  style="height: 64px; display: block"
+                  v-on:click="sendDirection('Right')">Right</button>
                 </div>
               </div>
               <div class="row justify-content-center w-100 m-0 p-0">
                 <div class="col-12 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Down')">Down</button>
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                  style="height: 64px; display: block"
+                  v-on:click="sendDirection('Down')">Down</button>
                 </div>
               </div>
             </div>
