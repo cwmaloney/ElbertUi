@@ -17,7 +17,8 @@ const Snakes = {
       dead: false,
       mostRecentGameId: null,
       activeGameId: null,
-      roundTripTime: null
+      roundTripTime: null,
+      gameReport: ""
     };
   },
   computed: {
@@ -28,7 +29,7 @@ const Snakes = {
           if (this.dead) {
             message = "Your snake is dead."
           } else {
-            message = `It is now your turn to play!  You are the ${this.colorName} snake.`;
+            message = `It is your turn to play!  You are the ${this.colorName} snake.`;
           }
         } else if (this.mostRecentGameId >= this.gameId) {
           message = `Your game is over. Click Play if you want to play again.`;
@@ -57,6 +58,19 @@ const Snakes = {
         return `Your round trip message time is ${this.roundTripTime}ms.`;
       } else
         return "";
+    },
+    gameReportMessage: function() {
+      let message = null;
+      if (this.gameReport && this.gameReport.players) {
+        message = `Scores for Game ${this.gameReport.gameId}:`;
+        let addComma = false;
+        for (let player of this.gameReport.players) {
+          if (addComma) message += ",";
+          message += ` ${player.name}: ${player.points}`;
+          addComma = true;
+        }
+      }
+      return message;
     }
   },
 
@@ -90,36 +104,36 @@ const Snakes = {
       this.pingTimestamp = Date.now();
     },
 
-    displayGrid(data) {
-      let canvas = document.getElementById('canvas')
-      let context = canvas.getContext('2d');
-      context.clearRect(0,0,canvas.width,canvas.height);
-      context.fillStyle = "black"; // "rgba(255, 0, 0, .5)";
-      context.fillRect(0, 0, (this.gridWidth)*this.scaleFactor, (this.gridHeight)*this.scaleFactor);
+    // displayGrid(data) {
+    //   let canvas = document.getElementById('canvas')
+    //   let context = canvas.getContext('2d');
+    //   context.clearRect(0,0,canvas.width,canvas.height);
+    //   context.fillStyle = "black"; // "rgba(255, 0, 0, .5)";
+    //   context.fillRect(0, 0, (this.gridWidth)*this.scaleFactor, (this.gridHeight)*this.scaleFactor);
 
-      if (data.snakes) {
-        for (let snakeIndex = 0; snakeIndex < data.snakes.length; snakeIndex++) {
-          let snake = data.snakes[snakeIndex];
-          let colorName = snake.colorName;
-          context.fillStyle = colorName;
+    //   if (data.snakes) {
+    //     for (let snakeIndex = 0; snakeIndex < data.snakes.length; snakeIndex++) {
+    //       let snake = data.snakes[snakeIndex];
+    //       let colorName = snake.colorName;
+    //       context.fillStyle = colorName;
 
-          context.fillRect(snake.x*this.scaleFactor, snake.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
-          if (snake.tail) {
-            for (let tailIndex = 0; tailIndex < snake.tail.length; tailIndex++) {
-              let tailPart = snake.tail[tailIndex];
-              context.fillRect(tailPart.x*this.scaleFactor, tailPart.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
-            }
-          }
-        }
-      }
-      if (data.snacks) {
-        for (let snackIndex = 0; snackIndex < data.snacks.length; snackIndex++) {
-          let snack = data.snacks[snackIndex];
-          context.fillStyle = "white";
-          context.fillRect(snack.x*this.scaleFactor, snack.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
-        }
-      }
-    },
+    //       context.fillRect(snake.x*this.scaleFactor, snake.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    //       if (snake.tail) {
+    //         for (let tailIndex = 0; tailIndex < snake.tail.length; tailIndex++) {
+    //           let tailPart = snake.tail[tailIndex];
+    //           context.fillRect(tailPart.x*this.scaleFactor, tailPart.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   if (data.snacks) {
+    //     for (let snackIndex = 0; snackIndex < data.snacks.length; snackIndex++) {
+    //       let snack = data.snacks[snackIndex];
+    //       context.fillStyle = "white";
+    //       context.fillRect(snack.x*this.scaleFactor, snack.y*this.scaleFactor, this.scaleFactor, this.scaleFactor);
+    //     }
+    //   }
+    // },
 
     sendDirection(direction) {
       socket.emit('snakes.changeDirection', direction);
@@ -132,7 +146,7 @@ const Snakes = {
 
   mounted() {
     console.log("SnakeScene mounted");
-    this.displayGrid({});
+    // this.displayGrid({});
 
     socket.on('snakes.pingResponse', function(data) {
       console.log(`SnakeScene pingResponse activeGameId=${data.activeGameId} @${new Date()}`);
@@ -148,7 +162,6 @@ const Snakes = {
         this.roundTripTime = Date.now() - this.pingTimestamp;
       }
       this.pingTimer = setTimeout(this.sendPing.bind(this), 4000);
-      this.displayGrid({});
     }.bind(this));
 
     socket.on('snakes.registered', function(data) {
@@ -162,6 +175,7 @@ const Snakes = {
           dismissible: true
         });
       } else {
+        this.$store.dispatch('deleteAllMessages');
         this.gameId = data.gameId;
         this.colorName = data.colorName;
         this.gameActive = false;
@@ -185,11 +199,12 @@ const Snakes = {
 
     socket.on('snakes.gameReport', function(data) {
       console.log("SnakeScene gameReport", data);
+      this.gameReport = data;
     }.bind(this));
 
     socket.on('snakes.state', function(data) {
       // ("SnakeScene state", data);
-      this.displayGrid(data);
+      // this.displayGrid(data);
     }.bind(this));
 
     socket.on('snakes.message', function(messageObject) {
@@ -208,7 +223,7 @@ const Snakes = {
       </nav>
       -->
 
-      <div class="hl-form">
+      <div class="hl-form w-100">
         <form @submit="checkForm">
           <div class="form-group">
             You can play snakes on Grizilla!
@@ -217,41 +232,46 @@ const Snakes = {
           <div class="form-group">
             <label class="col-form-label col-form-label-sm pb-0" for="Name">Name:</label>
             <input v-model="name" type="text" class="form-control" id="from" aria-describedby="Name">
+            <button class="btn btn-primary mt-1 mx-auto"
+              v-on:click="register">Play</button>
           </div>
 
-          <button class="btn btn-primary mx-auto"
-            v-on:click="register">Play</button>
-
-          <div class="form-group">
-            {{gameStatusMessage}}
+          <div class="form-group" style="height: 56px; display: block">
+            <p >{{gameStatusMessage}}</p>
           </div>
 
-          <div class="form-group">
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Up')">Up</button>
+          <div class="form-group w-100 m-0 p-0">
+            <div class="container w-100 m-0 p-0">
+              <div class="row justify-content-center w-100 m-0 p-0">
+                <div class="col-12 w-100 m-0 p-0">
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Up')">Up</button>
                 </div>
               </div>
-              <div class="row justify-content-between">
-                <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Left')">Left</button>
+              <div class="row justify-content-between w-100 m-0 p-0">
+                <div class="col-5 w-100 m-0 p-0">
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Left')">Left</button>
                 </div>
-                <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Right')">Right</button>
+                <div class="col-5 w-100 m-0 p-0">
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Right')">Right</button>
                 </div>
               </div>
-              <div class="row justify-content-center">
-                <div class="col-4">
-                  <button class="btn btn-primary mx-auto" v-on:click="sendDirection('Down')">Down</button>
+              <div class="row justify-content-center w-100 m-0 p-0">
+                <div class="col-12 w-100 m-0 p-0">
+                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2" v-on:click="sendDirection('Down')">Down</button>
                 </div>
               </div>
             </div>
           </div>
 
+          <!--
           <div class="form-group">
             <canvas id="canvas" :width="gridWidth*scaleFactor" :height="gridHeight*scaleFactor"
               style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);"></canvas>
+          </div>
+          -->
+
+          <div class="form-group">
+            <p>{{gameReportMessage}}</p>
           </div>
 
           <div class="form-group">
