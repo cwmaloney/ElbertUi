@@ -34,7 +34,8 @@ const About = {
               <li>Chris & Rachel Maloney</li>
               <li>Jolt Lighting</li>
               <li>Blake Stewart</li>
-              <li>Brian Jackson & Steve Bullard</li>
+              <li>Herc Rentals</li>
+              <li>Enerfab Midwest, Brian Jackson & Steve Bullard</li>
               <li>Mike & Jody McCamon</li>
               <li>Ken Vrana</li>
               <li>Elliot Maloney</li>
