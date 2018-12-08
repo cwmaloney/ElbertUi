@@ -22,6 +22,11 @@ const Snakes = {
     };
   },
   computed: {
+    registered: function() {
+      if (this.gameId && this.mostRecentGameId < this.gameId)
+        return true;
+      return false;
+    },
     gameStatusMessage: function() {
       let message
       if (this.gameId) {
@@ -230,10 +235,15 @@ const Snakes = {
           </div>
 
           <div class="form-group">
-            <label class="col-form-label col-form-label-sm pb-0" for="Name">Name:</label>
-            <input v-model="name" type="text" class="form-control" id="from" aria-describedby="Name">
-            <button class="btn btn-primary mt-1 mx-auto"
-              v-on:click="register">Play</button>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name:</span>
+              </div>
+              <input v-model="name" type="text" class="form-control" :disabled="registered" id="from" aria-describedby="Name">
+              <div class="input-group-append">
+                <button class="btn btn-primary" :disabled="registered" v-on:click="register">Play</button>
+              </div>
+            </div>
           </div>
 
           <div class="form-group" style="height: 56px; display: block">
