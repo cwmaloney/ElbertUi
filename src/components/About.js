@@ -40,6 +40,7 @@ const About = {
               <li>Ken Vrana</li>
               <li>Elliot Maloney</li>
               <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah, Amanda, Brett, & Cindy</li>
+              <li>John Webb</li>
             </ul>
           </div>
 
