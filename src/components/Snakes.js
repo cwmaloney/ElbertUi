@@ -7,18 +7,34 @@ const Snakes = {
     gridHeight: { type: Number, default: 36 },
     gridWidth: { type: Number, default: 168 },
     scaleFactor: { type: Number, default: 4 },
+    dotSize: { type: Number, default: 10 },
+    regionLimit: { type: Number, default: .333 }
   },
 
   data: function () {
     return {
       name: "",
+
+      // game status
       gameId: null,
       colorName: null,
       dead: false,
       mostRecentGameId: null,
       activeGameId: null,
+
+      gameReport: "",
+
       roundTripTime: null,
-      gameReport: ""
+
+      // input tracking
+      touchpadCanvas: null,
+      touchpadContext: null,
+      mouseX: null,
+      mouseY: null,
+      mouseDown: null,
+      touchX: null,
+      touchY: null,
+      direction: null
     };
   },
   computed: {
@@ -110,9 +126,9 @@ const Snakes = {
     },
 
     // displayGrid(data) {
-    //   let canvas = document.getElementById('canvas')
+    //   let canvas = document.getElementById('gridCanvas')
     //   let context = canvas.getContext('2d');
-    //   context.clearRect(0,0,canvas.width,canvas.height);
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
     //   context.fillStyle = "black"; // "rgba(255, 0, 0, .5)";
     //   context.fillRect(0, 0, (this.gridWidth)*this.scaleFactor, (this.gridHeight)*this.scaleFactor);
 
@@ -141,7 +157,133 @@ const Snakes = {
     // },
 
     sendDirection(direction) {
+      console.log(`sendDirection ${direction}`);
       socket.emit('snakes.changeDirection', direction);
+    },
+
+    // ---------- canvas, mouse events, touch events ----------
+    clearCanvas() {
+      this.touchpadContext.clearRect(0, 0, this.touchpadCanvas.width, this.touchpadCanvas.height);
+      this.touchpadContext.fillStyle = "rgba(128, 128, 128, .3)";
+      this.touchpadContext.fillRect(0, 0, this.touchpadCanvas.width, this.touchpadCanvas.height);
+
+      const width = this.touchpadCanvas.width;
+      const height = this.touchpadCanvas.height;
+      const centerX = width/2;
+      const centerY = height/2;
+      const length = 10;
+      const offset = 10;
+
+      this.touchpadContext.fillStyle = "rgba(0, 0, 0, .5)";
+      this.touchpadContext.lineWidth = 3;
+
+      // up arrow
+      this.touchpadContext.beginPath();
+      this.touchpadContext.moveTo(centerX-length, offset+length);
+      this.touchpadContext.lineTo(centerX, offset);
+      this.touchpadContext.lineTo(centerX+length, offset+length);
+      this.touchpadContext.stroke();
+
+      // down arrow
+      this.touchpadContext.beginPath();
+      this.touchpadContext.moveTo(centerX-length, height-(offset+length));
+      this.touchpadContext.lineTo(centerX, height-offset);
+      this.touchpadContext.lineTo(centerX+length, height-(offset+length));
+      this.touchpadContext.stroke();
+
+      // left arrow
+      this.touchpadContext.beginPath();
+      this.touchpadContext.moveTo(offset+length, centerY-length);
+      this.touchpadContext.lineTo(offset, centerY);
+      this.touchpadContext.lineTo(offset+length, centerY+length);
+      this.touchpadContext.stroke();
+
+      // right arrow
+      this.touchpadContext.beginPath();
+      this.touchpadContext.moveTo(width-(offset+length), centerY-length);
+      this.touchpadContext.lineTo(width-offset, centerY);
+      this.touchpadContext.lineTo(width-(offset+length), centerY+length);
+      this.touchpadContext.stroke();
+    },
+    drawDot(x, y, size = this.dotSize) {
+      this.clearCanvas();
+      this.touchpadContext.fillStyle = "rgba(128, 128, 255, .5)";
+      this.touchpadContext.beginPath();
+      this.touchpadContext.arc(x, y, size, 0, Math.PI*2, true);
+      this.touchpadContext.closePath();
+      this.touchpadContext.fill();
+    },
+    onMouseDown(e) {
+      this.saveMousePosition(e);
+      this.drawDot(this.mouseX, this.mouseY);
+      this.setDirection("mouse", this.mouseX, this.mouseY, true);
+      this.mouseDown = true;
+    },
+    onMouseUp() {
+      this.mouseDown = false;
+    },
+    onMouseMove(e) {
+      this.saveMousePosition(e);
+      if (this.mouseDown == true) {
+        this.drawDot(this.mouseX, this.mouseY);
+        this.setDirection("mouse", this.mouseX, this.mouseY, false);
+      }
+    },
+    saveMousePosition(e) {
+      if (!e.offsetX) {
+        console.log("*** saveMousePostion missing offsetX");
+      } else {
+        this.mouseX = e.offsetX;
+        this.mouseY = e.offsetY;
+      }
+    },
+    onTouchStart(e) {
+      this.touching = true;
+      this.saveTouchPosition(e);
+      this.drawDot(this.touchX, this.touchY);
+      this.setDirection("touch", this.touchX, this.touchY, true);
+      e.preventDefault();
+    },
+    onTouchMove(e) {
+      this.saveTouchPosition(e);
+      this.drawDot(this.touchX, this.touchY);
+      this.setDirection("touch", this.touchX, this.touchY, true);
+      e.preventDefault();
+    },
+    onTouchStop(e) {
+      this.touching = false;
+    },
+    saveTouchPosition(e) {
+      if(e.touches) {
+        // ignore multiple touches
+        if (e.touches.length == 1) {
+          var touch = e.touches[0];
+          this.touchX = touch.pageX - touch.target.offsetLeft;
+          this.touchY = touch.pageY - touch.target.offsetTop;
+        }
+      }
+    },
+    setDirection(mode, x, y, force = true) {
+      const yFactor = y/this.touchpadCanvas.height;
+      const xFactor = x/this.touchpadCanvas.width;
+
+      let newDirection;
+      if (yFactor < this.regionLimit) {
+        newDirection = "Up";
+      } else if (yFactor > (1 - this.regionLimit)) {
+        newDirection = "Down";
+      } else if (xFactor < this.regionLimit) {
+        newDirection = "Left";
+      } else if (xFactor > (1 - this.regionLimit)) {
+        newDirection = "Right";
+      }
+
+      // console.log(`setDirection ${mode} ${newDirection}`);
+      if (newDirection && (newDirection != this.direction || force)) {
+        this.sendDirection(newDirection);
+      }
+      // this may clear the direction if user moves back to center
+      this.direction = newDirection;
     }
 
   // createRandomPlayerName() {
@@ -216,6 +358,32 @@ const Snakes = {
       console.log("SnakeScene message", messageObject);
       this.addMessage(messageObject);
     }.bind(this));
+
+    this.touchpadCanvas = document.getElementById('touchpad');
+    if (!this.touchpadCanvas) {
+      console.log("*** missing touchpad canvas");
+    } else {
+      if (this.touchpadCanvas.getContext) {
+        this.touchpadContext = this.touchpadCanvas.getContext('2d');
+      }
+      if (!this.touchpadContext) {
+        console.log("*** missing touchpad context");
+      } else {
+        this.$nextTick(function () {
+          this.clearCanvas();
+
+          this.touchpadCanvas.addEventListener('mousedown', this.onMouseDown, false);
+          this.touchpadCanvas.addEventListener('mousemove', this.onMouseMove, false);
+          window.addEventListener('mouseup', this.onMouseUp, false);
+
+          this.touchpadCanvas.addEventListener('touchstart', this.onTouchStart, false);
+          this.touchpadCanvas.addEventListener('touchmove', this.onTouchMove, false);
+          this.touchpadCanvas.addEventListener('touchstop', this.onTouchStop, false);
+
+          // this.touchpadCanvas.height = this.touchpadCanvas.width;
+        });
+      }
+    }
   },
 
 
@@ -250,32 +418,58 @@ const Snakes = {
             <p >{{gameStatusMessage}}</p>
           </div>
 
-          <div class="form-group w-100 m-0 p-0">
-            <div class="container w-100 m-0 p-0">
-              <div class="row justify-content-center w-100 m-0 p-0">
-                <div class="col-12 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                    style="height: 64px; display: block"
-                    v-on:click="sendDirection('Up')">Up</button>
+          <div class="form-group">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#touch">Touch Pad</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#buttons">Buttons</a>
+              </li>
+            </ul>
+            <div class="tab-content w-100">
+              <div id="touch" class="tab-pane fade in active">
+                <canvas id="touchpad" class="touchpad">
+                </canvas>
                 </div>
-              </div>
-              <div class="row justify-content-between w-100 m-0 p-0">
-                <div class="col-5 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                    style="height: 64px; display: block"
-                    v-on:click="sendDirection('Left')">Left</button>
-                </div>
-                <div class="col-5 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                  style="height: 64px; display: block"
-                  v-on:click="sendDirection('Right')">Right</button>
-                </div>
-              </div>
-              <div class="row justify-content-center w-100 m-0 p-0">
-                <div class="col-12 w-100 m-0 p-0">
-                  <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                  style="height: 64px; display: block"
-                  v-on:click="sendDirection('Down')">Down</button>
+              <div id="buttons" class="tab-pane fade in active">
+                <div class="form-group w-100 m-0 p-0">
+                  <div class="container w-100 m-0 p-0">
+                    <div class="row justify-content-center w-100 m-0 p-0">
+                      <div class="col-12 w-100 m-0 p-0">
+                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                          style="height: 64px; display: block"
+                          v-on:click="sendDirection('Up')">
+                            <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_upward</i>
+                          </button>
+                      </div>
+                    </div>
+                    <div class="row justify-content-between w-100 m-0 p-0">
+                      <div class="col-5 w-100 m-0 p-0">
+                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                          style="height: 64px; display: block"
+                          v-on:click="sendDirection('Left')">
+                            <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_back</i>
+                          </button>
+                      </div>
+                      <div class="col-5 w-100 m-0 p-0">
+                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                        style="height: 64px; display: block"
+                        v-on:click="sendDirection('Right')">
+                          <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_forward</i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row justify-content-center w-100 m-0 p-0">
+                      <div class="col-12 w-100 m-0 p-0">
+                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
+                        style="height: 64px; display: block"
+                        v-on:click="sendDirection('Down')">
+                          <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_downward</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -283,7 +477,7 @@ const Snakes = {
 
           <!--
           <div class="form-group">
-            <canvas id="canvas" :width="gridWidth*scaleFactor" :height="gridHeight*scaleFactor"
+            <canvas id="gridCanvas" :width="gridWidth*scaleFactor" :height="gridHeight*scaleFactor"
               style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);"></canvas>
           </div>
           -->
