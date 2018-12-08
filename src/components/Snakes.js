@@ -7,7 +7,7 @@ const Snakes = {
     gridHeight: { type: Number, default: 36 },
     gridWidth: { type: Number, default: 168 },
     scaleFactor: { type: Number, default: 4 },
-    dotSize: { type: Number, default: 10 },
+    dotSize: { type: Number, default: 15 },
     regionLimit: { type: Number, default: .333 }
   },
 
@@ -38,9 +38,11 @@ const Snakes = {
     };
   },
   computed: {
+
     registered: function() {
-      if (this.gameId && this.mostRecentGameId < this.gameId)
+      if (this.gameId && this.mostRecentGameId < this.gameId) {
         return true;
+      }
       return false;
     },
     gameStatusMessage: function() {
@@ -100,6 +102,12 @@ const Snakes = {
       e.preventDefault();
     },
 
+    isGameActive: function() {
+      if (this.gameId && this.activeGameId === this.gameId) {
+        return true;
+      }
+      return false;
+    },
     setMessage: function(messageObject) {
       if (!messageObject.messageClass) {
         messageObject.messageClass = 'alert-info';
@@ -121,8 +129,10 @@ const Snakes = {
 
     // send ping to check status of game and measure latancy
     sendPing() {
-      socket.emit('snakes.ping');
-      this.pingTimestamp = Date.now();
+      if (!this.pingTimer && this.isGameActive()) {
+        socket.emit('snakes.ping');
+        this.pingTimestamp = Date.now();
+      }
     },
 
     // displayGrid(data) {
@@ -157,14 +167,16 @@ const Snakes = {
     // },
 
     sendDirection(direction) {
-      console.log(`sendDirection ${direction}`);
-      socket.emit('snakes.changeDirection', direction);
+      if (this.isGameActive()) {
+        console.log(`sendDirection ${direction}`);
+        socket.emit('snakes.changeDirection', direction);
+      }
     },
 
     // ---------- canvas, mouse events, touch events ----------
     clearCanvas() {
       this.touchpadContext.clearRect(0, 0, this.touchpadCanvas.width, this.touchpadCanvas.height);
-      this.touchpadContext.fillStyle = "rgba(128, 128, 128, .3)";
+      this.touchpadContext.fillStyle = "rgba(100, 100, 256, .1)";
       this.touchpadContext.fillRect(0, 0, this.touchpadCanvas.width, this.touchpadCanvas.height);
 
       const width = this.touchpadCanvas.width;
@@ -233,6 +245,7 @@ const Snakes = {
       if (!e.offsetX) {
         console.log("*** saveMousePostion missing offsetX");
       } else {
+        console.log(`saveMousePosition ${e.offsetX} ${e.offsetY}`)
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
       }
@@ -252,12 +265,14 @@ const Snakes = {
     },
     onTouchStop(e) {
       this.touching = false;
+      e.preventDefault();
     },
     saveTouchPosition(e) {
       if(e.touches) {
         // ignore multiple touches
-        if (e.touches.length == 1) {
-          var touch = e.touches[0];
+        if (e.targetTouches.length == 1) {
+          var touch = e.targetTouches[0];
+          // console.log(`saveTouchPosition ${touch.pageX} ${touch.target.offsetLeft} ${touch.pageY} ${touch.target.offsetTop}`)
           this.touchX = touch.pageX - touch.target.offsetLeft;
           this.touchY = touch.pageY - touch.target.offsetTop;
         }
@@ -281,9 +296,26 @@ const Snakes = {
       // console.log(`setDirection ${mode} ${newDirection}`);
       if (newDirection && (newDirection != this.direction || force)) {
         this.sendDirection(newDirection);
+        window.navigator.vibrate(500);
       }
       // this may clear the direction if user moves back to center
       this.direction = newDirection;
+    },
+    onTouchpadContainerResize() {
+      //console.log(`resize: screen.width=${screen.width} screen.height=${screen.height}`);
+      const touchpadContainer = document.getElementById('touchpadContainer');
+      //console.log(`rearesizedy: tpc.width=${tpc.clientWidth} tpc.height=${tpc.clientHeight}`);
+      const margin = screen.width - touchpadContainer.clientWidth;
+      if (screen.width < screen.height) {
+        const size = Math.min(screen.width, screen.height) - margin;
+        this.touchpadCanvas.width = size;
+        this.touchpadCanvas.height = size;
+      } else {
+        this.touchpadCanvas.width = screen.width - margin;
+        this.touchpadCanvas.height = screen.height - margin;
+      }
+      //console.log(`resize: w=${this.touchpadCanvas.width} h={this.touchpadCanvas.height} margin=${margin}`);
+      this.clearCanvas();
     }
 
   // createRandomPlayerName() {
@@ -325,10 +357,7 @@ const Snakes = {
         this.$store.dispatch('deleteAllMessages');
         this.gameId = data.gameId;
         this.colorName = data.colorName;
-        this.gameActive = false;
-        if (!this.pingTimer) {
-          this.pingTimer = setTimeout(this.sendPing.bind(this), 2000);
-        }
+         this.pingTimer = setTimeout(this.sendPing.bind(this), 2000);
       }
     }.bind(this));
 
@@ -336,12 +365,16 @@ const Snakes = {
       console.log("SnakeScene gameStarted", data);
       this.activeGameId = data.id;
       this.mostRecentGameId = data.id;
+      screen.orientation.lock("portrait-primary");
+      var touchpadContainer = document.getElementById("touchpadContainer");
+      touchpadContainer.scrollIntoView();
     }.bind(this));
 
     socket.on('snakes.gameEnded', function(data) {
       console.log("SnakeScene gameEnded", data);
       this.activeGameId = null;
       this.mostRecentGameId = data.id;
+      screen.orientation.unlock();
     }.bind(this));
 
     socket.on('snakes.gameReport', function(data) {
@@ -370,17 +403,18 @@ const Snakes = {
         console.log("*** missing touchpad context");
       } else {
         this.$nextTick(function () {
-          this.clearCanvas();
 
-          this.touchpadCanvas.addEventListener('mousedown', this.onMouseDown, false);
-          this.touchpadCanvas.addEventListener('mousemove', this.onMouseMove, false);
+          this.touchpadCanvas.addEventListener('mousedown', this.onMouseDown);
+          this.touchpadCanvas.addEventListener('mousemove', this.onMouseMove);
           window.addEventListener('mouseup', this.onMouseUp, false);
 
-          this.touchpadCanvas.addEventListener('touchstart', this.onTouchStart, false);
-          this.touchpadCanvas.addEventListener('touchmove', this.onTouchMove, false);
-          this.touchpadCanvas.addEventListener('touchstop', this.onTouchStop, false);
+          this.touchpadCanvas.addEventListener('touchstart', this.onTouchStart);
+          this.touchpadCanvas.addEventListener('touchmove', this.onTouchMove);
+          this.touchpadCanvas.addEventListener('touchstop', this.onTouchStop);
 
-          // this.touchpadCanvas.height = this.touchpadCanvas.width;
+          //const touchpadContainer= document.getElementById('touchpadContainer');
+          window.addEventListener('resize', this.onTouchpadContainerResize.bind(this));
+          this.onTouchpadContainerResize();
         });
       }
     }
@@ -419,59 +453,9 @@ const Snakes = {
           </div>
 
           <div class="form-group">
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#touch">Touch Pad</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#buttons">Buttons</a>
-              </li>
-            </ul>
-            <div class="tab-content w-100">
-              <div id="touch" class="tab-pane fade in active">
-                <canvas id="touchpad" class="touchpad">
+            <div id="touchpadContainer" class="hl-touchpadContainer">
+                <canvas id="touchpad" class="hl-touchpad" width=200 height=200>
                 </canvas>
-                </div>
-              <div id="buttons" class="tab-pane fade in active">
-                <div class="form-group w-100 m-0 p-0">
-                  <div class="container w-100 m-0 p-0">
-                    <div class="row justify-content-center w-100 m-0 p-0">
-                      <div class="col-12 w-100 m-0 p-0">
-                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                          style="height: 64px; display: block"
-                          v-on:click="sendDirection('Up')">
-                            <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_upward</i>
-                          </button>
-                      </div>
-                    </div>
-                    <div class="row justify-content-between w-100 m-0 p-0">
-                      <div class="col-5 w-100 m-0 p-0">
-                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                          style="height: 64px; display: block"
-                          v-on:click="sendDirection('Left')">
-                            <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_back</i>
-                          </button>
-                      </div>
-                      <div class="col-5 w-100 m-0 p-0">
-                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                        style="height: 64px; display: block"
-                        v-on:click="sendDirection('Right')">
-                          <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_forward</i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="row justify-content-center w-100 m-0 p-0">
-                      <div class="col-12 w-100 m-0 p-0">
-                        <button class="btn btn-primary mx-auto w-100 my-2 mx-1 p-2"
-                        style="height: 64px; display: block"
-                        v-on:click="sendDirection('Down')">
-                          <i title="Menu" class="material-icons md-24 p-0 m-0">arrow_downward</i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 

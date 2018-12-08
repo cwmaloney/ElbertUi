@@ -135,14 +135,25 @@
         border: 0;
       }
 
-      /* Prevent highlithing nearby text when dragging mouse outside the canvas */
+      /* ----- touchpad ----- */
+
+      .hl-touchpadContainer {
+        border: 0;
+        padding: 0;
+        margin: 0 10px;
+      }
+
       .hl-touchpad {
+        /* Prevent highlithing nearby text when dragging mouse outside the canvas */
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        border: 1px solid black;
+        margin: auto;
+        padding: 0;
       }
 
     </style>
