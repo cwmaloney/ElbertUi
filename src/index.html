@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="icon" href="./resources/favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>Holiday Lights at Farmstead Lane</title>
 
@@ -115,6 +116,25 @@
         padding: 0;
       }
 
+      /* ----- drop down menu customizations ----- */
+
+      .hl-menu-btn {
+        padding: 0 !important;
+        margin: 1px 4px  !important;
+        border: 0;
+      }
+
+      .hl-menu {
+        padding: 0 !important;
+        margin: 1px 4px  !important;
+      }
+
+      .hl-menu-item {
+        padding: 0 !important;
+        margin: 1px 4px  !important;
+        border: 0;
+      }
+
     </style>
   </head>
 
@@ -127,54 +147,52 @@
 
           <a class="navbar-brand" href="#/">Holiday Lights</a>
 
-          <button class="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#mainNavBar"
-                  aria-controls="mainNavBar"
-                  aria-expanded="false"
-                  aria-label="Toggle Navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          <div class="nav-item dropdown border-info">
+            <button type="button"
+                    id="mainMenuDropdown"
+                    class="hl-menu-btn btn btn-outline-info"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+              <i :title="Menu" class="material-icons md-24 p-0 m-0">menu</i>
+            </button>
 
-          <div class="collapse navbar-collapse" id="mainNavBar">
-            <div class="navbar-nav">
+            <div class="dropdown-menu dropdown-menu-right hl-menu">
 
-              <router-link to="/" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/" tag="a" class="dropdown-item hl-menu-item text-info">
                 Home
               </router-link>
 
-              <router-link to="/message" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/message" tag="a" class="dropdown-item hl-menu-item text-info">
                 Create Message
               </router-link>
 
-              <router-link to="/cheer" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/message" tag="a" class="dropdown-item hl-menu-item text-info">
                 Create Cheer
               </router-link>
 
-              <router-link to="/snakes" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/snakes" tag="a" class="dropdown-item hl-menu-item text-info">
                 Play Snakes
               </router-link>
 
-              <router-link to="/suggestion" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/suggestion" tag="a" class="dropdown-item hl-menu-item text-info">
                 Send Suggestion
               </router-link>
 
-<!--
-              <router-link to="/trivia" tag="a" class="nav-item nav-link">
-                Play Trivia
-              </router-link>
+  <!--
+                <router-link to="/trivia" tag="a" class="dropdown-item hl-menu-item text-info">
+                  Play Trivia
+                </router-link>
 
-              <router-link to="/survery" tag="a" class="nav-item nav-link">
-                Complete Survey
-              </router-link>
+                <router-link to="/survery" tag="a" class="dropdown-item hl-menu-item text-info">
+                  Complete Survey
+                </router-link>
 
-              <router-link to="/pong" tag="a" class="nav-item nav-link">
-                Play Pong
-              </router-link>
--->
+                <router-link to="/pong" tag="a" class="dropdown-item hl-menu-item text-info">
+                  Play Pong
+                </router-link>
+  -->
 
-              <router-link to="/about" tag="a" class="nav-item nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">
+              <router-link to="/about" tag="a" class="dropdown-item hl-menu-item text-info">
                 About
               </router-link>
             </div>
