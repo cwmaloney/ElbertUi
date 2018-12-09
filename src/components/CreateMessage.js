@@ -81,15 +81,10 @@ const CreateMessage = {
 
   template: `
     <div class="hl-page">
-      <!--
-      <nav class="breadcrumb">
-        <a class="breadcrumb-item" href="#/">{{"Home"}}</a>
-        <a class="breadcrumb-item" href="#/message">{{"Create Message"}}</a>
-      </nav>
-      -->
 
       <div class="hl-form">
         <form @submit="checkForm">
+
           <div class="form-group">
             You can create a message to display on Gridzilla!
           </div>
@@ -149,10 +144,10 @@ const CreateMessage = {
               <button class="btn btn-primary mx-auto"
                 v-on:click="addMessage">Send Message</button>
 
-              <p class="form-text text-muted text-left mt-3">
+              <small class="form-text text-muted text-left mt-3">
               You can use common names and names like Mom, Dad, Grandmother, & Everyone.
               You can enter multiple names separated by commas.
-              </p>
+              </small>
             </div>
           </div>
 
