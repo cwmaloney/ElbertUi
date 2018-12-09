@@ -196,7 +196,8 @@ const Store = {
 // ----- registers Vue components -----
 
 Vue.component( "messages", Messages );
-Vue.component( "snakes", Snakes );
+//Vue.component( "snakes", Snakes );
+Vue.component( "color-picker", ColorPicker );
 
 // ----- start Vue -----
 

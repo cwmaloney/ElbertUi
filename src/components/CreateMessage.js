@@ -7,7 +7,9 @@ const CreateMessage = {
     return {
       sender: null,
       recipient: null,
-      message: null
+      message: null,
+      color: "White",
+      backgroundColor: "Black"
     };
   },
 
@@ -40,6 +42,8 @@ const CreateMessage = {
           sender: this.sender,
           recipient: this.recipient,
           message: this.message,
+          color: this.color,
+          backgroundColor: this.backgroundColor,
           timeout: 10000
         })
         .then((response) => {
@@ -90,43 +94,67 @@ const CreateMessage = {
             You can create a message to display on Gridzilla!
           </div>
 
-          <div class="form-group">
-            <label class="col-form-label col-form-label-sm pb-0" for="To">To:</label>
-            <input v-model="recipient" type="text" class="form-control" id="to" aria-describedby="To">
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="to">To</label>
+            <div class="col-9">
+              <input v-model="recipient" type="text" class="form-control" id="to" aria-describedby="To">
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-form-label col-form-label-sm pb-0" for="From">From:</label>
-            <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="From">From</label>
+            <div class="col-9">
+              <input v-model="sender" type="text" class="form-control" id="from" aria-describedby="From">
+            </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-form-label col-form-label-sm pb-0" for="message">Message:</label>
-            <select v-model="message" class="form-control" id="Message">
-              <option>Happy Holidays</option>
-              <option>Seasons Greetings</option>
-              <option>Love, Peace, and Joy</option>
-              <option>I Love you</option>
-              <option>We Love you</option>
-              <option>Merry Christmas</option>
-              <option>Feliz Navidad</option>
-              <option>Happy Hanukkah</option>
-              <option>Shalom</option>
-              <option>Joyous Kwanzaa</option>
-              <option>Will you marry me?</option>
-              <option>Live Long and Prosper</option>
-              <option>Happy New Year</option>
-              <option>You are my BFF</option>
-            </select>
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="message">Message</label>
+            <div class="col-9">
+              <select v-model="message" class="form-control" id="Message">
+                <option>Happy Holidays</option>
+                <option>Seasons Greetings</option>
+                <option>Love, Peace, and Joy</option>
+                <option>I Love you</option>
+                <option>We Love you</option>
+                <option>Merry Christmas</option>
+                <option>Feliz Navidad</option>
+                <option>Happy Hanukkah</option>
+                <option>Shalom</option>
+                <option>Joyous Kwanzaa</option>
+                <option>Will you marry me?</option>
+                <option>Live Long and Prosper</option>
+                <option>Happy New Year</option>
+                <option>You are my BFF</option>
+              </select>
+            </div>
           </div>
 
-          <button class="btn btn-primary mx-auto"
-            v-on:click="addMessage">Send Message</button>
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="color">Color</label>
+            <div class="col-9">
+              <color-picker id="color" v-model="color"></color-picker>
+            </div>
+          </div>
 
-          <p class="form-text text-muted text-left mt-3">
-          You can use common names and names like Mom, Dad, Grandmother, & Everyone.
-          You can enter multiple names separated by commas.
-          </p>
+          <div class="form-group row">
+            <label class="col-3 col-form-label col-form-label-sm" for="background">Background</label>
+            <div class="col-9">
+              <color-picker id="background" v-model="backgroundColor"></color-picker>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-12">
+              <button class="btn btn-primary mx-auto"
+                v-on:click="addMessage">Send Message</button>
+
+              <p class="form-text text-muted text-left mt-3">
+              You can use common names and names like Mom, Dad, Grandmother, & Everyone.
+              You can enter multiple names separated by commas.
+              </p>
+            </div>
+          </div>
 
         </form>
       </div>
