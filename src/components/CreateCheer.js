@@ -179,7 +179,7 @@ const CreateCheer = {
                 <option>Santa</option>
                 <option>Rudolph</option>
                 <option>Snowman</option>
-                <option>Raindeer</option>
+                <option>Reindeer</option>
                 <option>Grinch</option>
                 <option>Snow</option>
                 <option>Tree</option>
