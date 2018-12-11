@@ -119,7 +119,7 @@ const CreateMessage = {
                 <option>Joyous Kwanzaa</option>
                 <option>Will you marry me?</option>
                 <option>Live Long and Prosper</option>
-                <option>Happy Festivas</option>
+                <option>Happy Festivus</option>
                 <option>Happy New Year</option>
                 <option>You are my BFF</option>
               </select>
