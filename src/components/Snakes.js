@@ -433,7 +433,7 @@ const Snakes = {
       <div class="hl-form w-100">
         <form @submit="checkForm">
           <div class="form-group">
-            You can play snakes on Grizilla!
+            You can play snakes on Gridzilla!
           </div>
 
           <div class="form-group">
