@@ -30,9 +30,6 @@ const Home = {
               <li>Send the Holiday Lights team a suggestion</li>
               <li>Learn more about Holiday Lights</li>
             </ul>
-            <p>
-              More features will be coming soon include suverys and games.
-            </p>
           </div>
 
         </form>
