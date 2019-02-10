@@ -107,21 +107,26 @@ const CreateMessage = {
             <label class="col-3 col-form-label" for="message">Message</label>
             <div class="col-9">
               <select v-model="message" class="form-control" id="Message">
+                <!--
+                <opton>test</option>
                 <option>Happy Holidays</option>
                 <option>Seasons Greetings</option>
-                <option>Love, Peace, and Joy</option>
-                <option>I Love you</option>
-                <option>We Love you</option>
                 <option>Merry Christmas</option>
                 <option>Feliz Navidad</option>
                 <option>Happy Hanukkah</option>
                 <option>Shalom</option>
                 <option>Joyous Kwanzaa</option>
-                <option>Will you marry me?</option>
-                <option>Live Long and Prosper</option>
                 <option>Happy Festivus</option>
                 <option>Happy New Year</option>
+                -->
+                <option>Will you be my Valentine?</option>
+                <option>Happy Valentine's Day</option>
+                <option>I Love you</option>
+                <option>We Love you</option>
                 <option>You are my BFF</option>
+                <option>Love, Peace, and Joy</option>
+                <option>Will you marry me?</option>
+                <option>Live Long and Prosper</option>
               </select>
             </div>
           </div>
