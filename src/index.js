@@ -8,7 +8,7 @@ const routes = [
   { path: '', component: Home, name: 'home' },
 
   { path: '/message', component: CreateMessage, name: 'message' },
-  // { path: '/cheer', component: CreateCheer, name: 'cheer' },
+  { path: '/cheer', component: CreateCheer, name: 'cheer' },
   // { path: '/snakes', component: Snakes, name: 'snakes' },
   { path: '/suggestion', component: CreateSuggestion, name: 'suggestion' },
 

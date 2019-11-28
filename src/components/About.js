@@ -31,16 +31,18 @@ const About = {
             </p>
             <ul>
               <li>Chris Callegari</li>
-              <li>Chris & Rachel Maloney</li>
-              <li>Jolt Lighting</li>
               <li>Blake Stewart</li>
-              <li>Herc Rentals</li>
-              <li>Enerfab Midwest, Brian Jackson & Steve Bullard</li>
-              <li>Mike & Jody McCamon</li>
-              <li>Ken Vrana</li>
-              <li>Elliot Maloney</li>
-              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Orrin, Janet, Sarah, Amanda, Brett, & Cindy</li>
-              <li>John Webb</li>
+              <li>Chris & Rachel Maloney</li>
+              <li>Ken & Min Vrana</li>
+              <li>Kyle Weafer</li>
+              <li>Foley Equipment</li>
+              <li>Pretech Precast Concrete</li>
+              <li>Enerfab Midwest (Brian Jackson, Steve Bullard)</li>
+              <li>T.J. Kilian and KJO Media</li>
+              <li>Jolt Lighting</li>
+              <li>Gieske Custom Metal Fabricators</li>
+              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Matt, Orrin, Janet, Sarah, Amanda, Brett, & Cindy</li>
+              <li>John Webb from OP's network team</li>
             </ul>
           </div>
 
