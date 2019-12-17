@@ -62,6 +62,7 @@ const CreateSuggestion = {
             messageClass: 'alert-danger fade show',
             // timeout: 2000,
             dismissible: true
+
           });
         });
     }
@@ -78,8 +79,12 @@ const CreateSuggestion = {
 
       <div class="hl-form">
         <form>
-          <div class="form-group row">
-             We would love to hear what you are thinking.
+
+        <div class="form-group">
+            <p>
+              We would love to hear what you are thinking.
+              If you want a response, please include your phone number (that accepts text messages) or email address.
+            </p>
           </div>
 
           <div class="form-group">

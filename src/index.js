@@ -13,6 +13,7 @@ const routes = [
   { path: '/suggestion', component: CreateSuggestion, name: 'suggestion' },
 
   { path: '/about', component: About, name: 'about' },
+  { path: '/program', component: Program, name: 'program' },
 
   { path: '/utilities', component: Utilities, name: 'utilities' },
   { path: '/status', component: Status, name: 'status' },
