@@ -192,6 +192,7 @@ const CreateCheer = {
                 <option>Sporting KC</option>
                 <option>Mavericks</option>
 
+                <option>Arkansas</option>
                 <option>Baylor</option>
                 <option>Iowa</option>
                 <option>Iowa State</option>

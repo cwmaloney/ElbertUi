@@ -12,6 +12,7 @@ const colorNames = [
   "Crimson",
   "Dark Red",
   "Scarlet",
+  "Cardinal",
 
   "Pink",
   "Dark Pink",
