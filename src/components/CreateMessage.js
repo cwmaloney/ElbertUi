@@ -107,6 +107,7 @@ const CreateMessage = {
             <label class="col-3 col-form-label" for="message">Message</label>
             <div class="col-9">
               <select v-model="message" class="form-control" id="Message">
+              <!--
                 <option>Happy Holidays</option>
                 <option>Seasons Greetings</option>
                 <option>Merry Christmas</option>
@@ -117,7 +118,7 @@ const CreateMessage = {
                 <option>Happy Festivus</option>
                 <option>Happy Winter Solstice</option>
                 <option>Happy New Year</option>
-                <option>Happy Birthday</option>
+              -->
                 <option>Will you be my Valentine?</option>
                 <option>Happy Valentine's Day</option>
                 <option>I Love you</option>
@@ -126,6 +127,7 @@ const CreateMessage = {
                 <option>Love, Peace, and Joy</option>
                 <option>Will you marry me?</option>
                 <option>Live Long and Prosper</option>
+                <option>Happy Birthday</option>
               </select>
             </div>
           </div>
@@ -137,12 +139,14 @@ const CreateMessage = {
             </div>
           </div>
 
+          <!--
           <div class="form-group row">
             <label class="col-3 col-form-label col-form-label-sm" for="background">Background</label>
             <div class="col-9">
               <color-picker id="background" v-model="backgroundColor"></color-picker>
             </div>
           </div>
+          -->
 
           <div class="form-group row">
             <div class="col-12">
