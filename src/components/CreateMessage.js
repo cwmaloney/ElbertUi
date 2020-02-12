@@ -139,7 +139,7 @@ const CreateMessage = {
             <div class="col-9">
               <select v-model="imageName" class="form-control" id="Image">
                 <option>Rose</option>
-                <option>Hearts</option>
+                <option>Heart</option>
                 <option>Couple</option>
                 <option>Birdy</option>
                 <option>Pumpkin</option>
