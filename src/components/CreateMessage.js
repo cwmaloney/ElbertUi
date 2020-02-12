@@ -8,6 +8,7 @@ const CreateMessage = {
       sender: null,
       recipient: null,
       message: null,
+      imageName: null,
       color: "White",
       backgroundColor: "Black"
     };
@@ -42,6 +43,7 @@ const CreateMessage = {
           sender: this.sender,
           recipient: this.recipient,
           message: this.message,
+          imageName: this.imageName,
           color: this.color,
           backgroundColor: this.backgroundColor,
           timeout: 10000
@@ -86,7 +88,7 @@ const CreateMessage = {
         <form @submit="checkForm">
 
           <div class="form-group">
-            You can create a message to display on Gridzilla!
+            You can diplay a message!
           </div>
 
           <div class="form-group row">
@@ -128,6 +130,23 @@ const CreateMessage = {
                 <option>Will you marry me?</option>
                 <option>Live Long and Prosper</option>
                 <option>Happy Birthday</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-3 col-form-label" for="imageName">Image</label>
+            <div class="col-9">
+              <select v-model="imageName" class="form-control" id="Image">
+                <option>Rose</option>
+                <option>Hearts</option>
+                <option>Couple</option>
+                <option>Birdy</option>
+                <option>Pumpkin</option>
+                <option>Snowflake</option>
+                <option>Snowman</option>
+                <option>Ghost</option>
+                <option>Rainbow</option>
               </select>
             </div>
           </div>
