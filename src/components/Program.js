@@ -34,6 +34,7 @@ const Program = {
               <li>Let it Go – Idina Menzel</li>
               <li>Rudolph the Red Nose Reindeer – Monique Danielle</li>
               <li>Christmas Can Can – Straight No Chaser</li>
+              <li>Best of Harry Potter Medley</li>
               <li>Christmas Eve/Sarajevo – Trans-Siberian Orchestra</li>
             </ul>
 
@@ -42,7 +43,6 @@ const Program = {
             </p>
 
             <ul>
-              <li>Best of Harry Potter Medley</li>
               <li>Happy - Pharrell Williams</li>
             </ul>
           </div>
