@@ -32,17 +32,19 @@ const About = {
             <ul>
               <li>Chris Callegari</li>
               <li>Blake Stewart</li>
-              <li>Chris & Rachel Maloney</li>
+              <li>Chris Maloney</li>
               <li>Ken & Min Vrana</li>
+              <li>Mike McCamon</li>
+              <li>Steve Bullard</li>
               <li>Kyle Weafer</li>
               <li>Foley Equipment</li>
               <li>Pretech Precast Concrete</li>
-              <li>Enerfab Midwest (Brian Jackson, Steve Bullard)</li>
+              <li>Enerfab Midwest & Brian Jackson</li>
               <li>T.J. Kilian and KJO Media</li>
               <li>Jolt Lighting</li>
               <li>Gieske Custom Metal Fabricators</li>
-              <li>Deanna Rose Farmsteaders: Virgil, Laura, Kathi, Jerry, Matt, Orrin, Janet, Sarah, Amanda, Brett, & Cindy</li>
-              <li>John Webb from OP's network team</li>
+              <li>Lowe's on Stateline</li>
+              <li>Deanna Rose Farmstead Team: Virgil, Kathi, Laurie, Jerry, Matt, Orrin, Janet, Sarah, Amanda, & Cindy</li>
             </ul>
           </div>
 

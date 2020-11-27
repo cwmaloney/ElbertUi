@@ -19,17 +19,17 @@ const Home = {
 
           <div class="form-group">
             <p>
-              <!-- Welcome to Holiday Lights on Farmstead Lane for Valentine's Day! -->
-              <!-- Thank you for joining our celebration! -->
-              Happy Valentine's Day!
+              Welcome to Holiday Lights on Farmstead Lane!
+              Thank you for joining our celebration.
+              <!-- Happy Valentine's Day! -->
             </p>
             <p>
               Use the menu above to:
             </p>
             <ul>
               <li>Display a message</li>
-              <!-- <li>See the program (song list)</li> -->
-              <!-- <li>Cheer for your favorite team</li> -->
+              <li>See the program (song list)</li>
+              <li>Cheer for your favorite team</li>
               <!-- <li>Play Snakes on Gridzilla</li> -->
               <li>Send a suggestion to the Holiday Lights team</li>
               <li>Learn more about Holiday Lights</li>
